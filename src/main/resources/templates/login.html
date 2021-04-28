@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Beschreibung">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>web-Projekt</title>
+</head>
+
+
+<body>
+
+    <section class="login-field">
+        <h2>Login</h2>
+        <span th:text="${hinweis}"></span>
+        <form action="/login" method="POST">
+            <span>Username</span> <input type="text" name="username"><br />
+            <span>Passwort</span> <input type="password" name="password"> <br />
+            <input type="submit" name="okbutton" value="OK"> <br />
+            <input type="submit" name="cancelbutton" value="Cancel"> <br />
+        </form>
+    </section>
+
+    
+</body>
+
+
+</html>
