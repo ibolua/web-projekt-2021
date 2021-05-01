@@ -2,7 +2,7 @@ package de.hsrm.mi.web.projekt.login;
 
 public class LoggedInUsername {
 
-    private String userName;
+    private String userName = "";
 
     public String getUserName() {
         return this.userName;
