@@ -2,14 +2,45 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <meta charset="utf-8">
-   <meta name="description" content="Beschreibung">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-   <title>Die Liste</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Beschreibung">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Die Liste</title>
 </head>
 
 <body>
 
 </body>
+<h1>Die Liste</h1>
+
+<table>
+    <thead>
+        <tr class="headings">
+            <th th:each="header: ${headers}" class="column-title" th:text="${header}"></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        <tr class="even pointer" th:each="sichtung : ${meinesichtungen}"></tr> id="tablerow">
+            <td th:each="header: ${headers}" th:text="${sichtung.datum(header)}"></td>
+            <td th:each="header: ${headers}" th:text="${sichtung.name(header)}"></td>
+            <td th:each="header: ${headers}" th:text="${sichtung.ort(header)}"></td>
+            <td th:each="header: ${headers}" th:text="${sichtung.beschreibung(header)}"></td>
+        </tr>
+    </tbody>
+
+    <!--
+    <tbody>
+        <tr th:each="sichtung : ${meinesichtungen}">
+            <td th:text="${sichtung.datum}"></td>
+            <td th:text="${sichtung.name}"></td>
+            <td th:text="${sichtung.ort}"></td>
+            <td th:text="${sichtung.beschreibung}"></td>
+        </tr>
+    </tbody>
+    -->
+</table>
+
 
 </html>

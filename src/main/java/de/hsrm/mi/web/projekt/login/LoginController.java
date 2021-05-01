@@ -15,6 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(names = { "loggedinusername" })
 public class LoginController {
     private static final String LOGING_STRING = "login"; // Compliant
+    private static final String REDIRECT_SICHTUNG_MEINE_STRING = "redirect:/sichtung/meine"; // Compliant
     Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     // Mit @ModelAttribute annotierte Methoden werden vor Requesthandler Methoden
@@ -27,13 +28,17 @@ public class LoginController {
 
     // GET auf http://localhost:8080/login
     @GetMapping("/login")
-    public String loginGet() {
+    public String loginGet(@ModelAttribute("loggedinusername") LoggedInUsername lst) {
+
+        if (!lst.getUserName().isEmpty()) {
+            return REDIRECT_SICHTUNG_MEINE_STRING;
+        }
         return LOGING_STRING;
     }
 
     @PostMapping("/login")
     public String loginPost(Model m, @RequestParam String username, @RequestParam String password,
-            @ModelAttribute("LoggedInUsername") LoggedInUsername lst) {
+            @ModelAttribute("loggedinusername") LoggedInUsername lst) {
 
         int len = username.length();
         String pwMitLaenge = username + Integer.toString(len);
@@ -45,16 +50,17 @@ public class LoginController {
 
         if (password.equals(pwMitLaenge)) {
             lst.add(username);
-            return "redirect:/sichtung/meine";
+            m.addAttribute("willkommenUser", "Willkommen " + username);
+            return REDIRECT_SICHTUNG_MEINE_STRING;
             // return "pwrichtig"; // pwRichtig View
         } else {
             logger.warn("Falsche Anmeldedaten für Username: {}", username);
             m.addAttribute("hinweis", hinweis);
 
             lst.add("");
-            return LOGING_STRING;         
+            return LOGING_STRING;
         }
-   
+
     }
 
     @GetMapping("/logout")
