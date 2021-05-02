@@ -17,14 +17,14 @@ import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @RequestMapping("/sichtung")
-// Attribut 'list' im Model soll im Session-Scope landen
+// Attribut 'meinesichtungen' im Model soll im Session-Scope landen
 @SessionAttributes(names = "meinesichtungen")
 public class SichtungController {
     Logger logger = LoggerFactory.getLogger(SichtungController.class);
 
 
 
-    // Model-Attribut 'liste' initialisieren (Session-Scope!)
+    // Model-Attribut 'meinesichtungen' initialisieren (Session-Scope!)
     @ModelAttribute("meinesichtungen")
     public void initListe(Model m) {
         ArrayList<Sichtung> dieSicht = new ArrayList<>();
@@ -66,7 +66,17 @@ public class SichtungController {
 
     @GetMapping("/meine")
     public String sichtungMeineGet() {
-        return "meinesichtung";
+        return "redirect:/sichtung/meine/liste";
+        // return "meinesichtung";
+    }
+
+    @GetMapping("/sichtung/meine/neu")
+    public String sichtungMeineNeuGet(Model m) {
+        Sichtung neueSichtung = new Sichtung();
+        
+        m.addAttribute("meinesichtungform", neueSichtung);
+
+        return "bearbeiten";
     }
 
 }
