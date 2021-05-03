@@ -5,11 +5,43 @@
     <meta charset="utf-8">
     <meta name="description" content="Beschreibung">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link th:href="@{css/sichtung/sichtung-formular-style.css}" rel="stylesheet" />
+    
     <title>Sichtung</title>
 </head>
 
 <body>
-    
 
+    <section class="formular-sichtung-abschnitt">
+
+        <h2>Bitte berichten Sie von Ihrer Sichtung</h2>
+    
+        <form class="sichtungsformular" th:action="@{/sichtung/meine/neu}" th:method="POST" th:object="${meinesichtungform}">
+
+            <div>
+                <label for="benutzername">Benutzer</label>
+                <input type="text" th:field="*{name}" name="benutzername">
+            </div>
+            
+            <div>
+                <label for="ort">Ort</label>
+                <input type="text" th:field="*{ort}" name="ort">
+            </div>
+            
+            <div>
+                <label for="beschreibung">Beschreibung</label>
+                <input type="text" th:field="*{beschreibung}" name="beschreibung">
+            </div>
+
+            <div>
+                <label for="datum">Datum</label>
+                <input type="date" th:field="*{datum}" th:value="*{datum}" name="datum">
+            </div>
+            <div>
+                <input type="submit" name="okbutton" value="OK"> <br />
+            </div>
+        </form>
+
+    </section>
 
 </body>
