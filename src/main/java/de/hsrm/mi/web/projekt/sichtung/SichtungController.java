@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -67,16 +68,21 @@ public class SichtungController {
     @GetMapping("/meine")
     public String sichtungMeineGet() {
         return "redirect:/sichtung/meine/liste";
-        // return "meinesichtung";
     }
 
-    @GetMapping("/sichtung/meine/neu")
-    public String sichtungMeineNeuGet(Model m) {
-        Sichtung neueSichtung = new Sichtung();
-        
-        m.addAttribute("meinesichtungform", neueSichtung);
-
+    @GetMapping("/meine/neu")
+    public String sichtungMeineNeuGet(Model m) { 
+        m.addAttribute("meinesichtungform", new Sichtung());
         return "bearbeiten";
+    }
+
+    @PostMapping("/meine/neu")
+    @ModelAttribute("meinesichtungen")
+    public String sichtungMeineNeuPost(@ModelAttribute("meinesichtungform") Sichtung sichtung, Model m) {
+        // logger.error("Ausgabe Sichtung: ", sichtung.getDatum());
+        m.addAttribute("meinesichtungen", sichtung);
+
+        return "redirect:/sichtung/meine";
     }
 
 }
