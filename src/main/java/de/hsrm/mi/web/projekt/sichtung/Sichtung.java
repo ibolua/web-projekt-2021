@@ -2,10 +2,13 @@ package de.hsrm.mi.web.projekt.sichtung;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Sichtung {
 
     private String name;
     private String ort;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate datum;
     private String beschreibung;
     
