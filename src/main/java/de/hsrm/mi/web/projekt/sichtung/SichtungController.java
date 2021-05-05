@@ -14,22 +14,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @RequestMapping("/sichtung")
 // Attribut 'meinesichtungen' im Model soll im Session-Scope landen
-@SessionAttributes(names = "meinesichtungen")
+@SessionAttributes(names = { "meinesichtungen", "loggedinusername" })
 public class SichtungController {
     Logger logger = LoggerFactory.getLogger(SichtungController.class);
-
+    private static final List<String> HEADERS = Arrays.asList("Datum", "Name", "Ort", "Beschreibung");
 
 
     // Model-Attribut 'meinesichtungen' initialisieren (Session-Scope!)
     @ModelAttribute("meinesichtungen")
-    public void initListe(Model m) {
+    public void initListe(Model m, @ModelAttribute("loggedinusername") String loggedinusername) {
         ArrayList<Sichtung> dieSicht = new ArrayList<>();
-        List<String> headers = Arrays.asList("Datum", "Name", "Ort", "Beschreibung");
+        
         LocalDate localDate = LocalDate.now();
 
         Sichtung a = new Sichtung();
@@ -56,32 +55,47 @@ public class SichtungController {
         dieSicht.add(b);
         dieSicht.add(c);
 
+        m.addAttribute("willkommenUser", "Willkommen " + loggedinusername);
         m.addAttribute("meinesichtungen", dieSicht);
-        m.addAttribute("headers", headers);
+        m.addAttribute("headers", HEADERS);
     }
 
-    @GetMapping("/meine/liste")
-    public String sichtungenMeineListeGet(){
-        return "liste";
-    }
+    // @GetMapping("/meine/liste")
+    // public String sichtungenMeineListeGet(Model m, @ModelAttribute("loggedinusername") String loggedinusername){
+    //     logger.error("Sichtung GetMapping LISTE Username: {}", loggedinusername);
+    //     m.addAttribute("willkommenUser", "Willkommen " + loggedinusername);
+    //     return "liste";
+    // }
+    // @GetMapping("/meine/liste")
+    // public String sichtungenMeineListeGet(){
+    //     return "liste";
+    // }
+
+    // @GetMapping("/meine")
+    // public String sichtungMeineGet() {
+    //     return "redirect:/sichtung/meine/liste";
+    // }
 
     @GetMapping("/meine")
-    public String sichtungMeineGet() {
-        return "redirect:/sichtung/meine/liste";
+    public String sichtungMeineGet(Model m, @ModelAttribute("loggedinusername") String loggedinusername){
+        m.addAttribute("willkommenUser", "Willkommen " + loggedinusername);
+        m.addAttribute("headers", HEADERS);
+        return "sichtung/meine/liste";
     }
-
+    
     @GetMapping("/meine/neu")
-    public String sichtungMeineNeuGet(Model m) { 
+    public String sichtungMeineNeuGet(Model m) {
         m.addAttribute("meinesichtungform", new Sichtung());
-        return "bearbeiten";
+        return "sichtung/meine/neu";
     }
 
     @PostMapping("/meine/neu")
-    @ModelAttribute("meinesichtungen")
-    public String sichtungMeineNeuPost(@ModelAttribute("meinesichtungform") Sichtung sichtung, Model m) {
-        // logger.error("Ausgabe Sichtung: ", sichtung.getDatum());
-        m.addAttribute("meinesichtungen", sichtung);
-
+    // @ModelAttribute("meinesichtungen")
+    public String sichtungMeineNeuPost(
+        @ModelAttribute("meinesichtungform") Sichtung sichtung, Model m,
+        @ModelAttribute("meinesichtungen") ArrayList<Sichtung> dieSichtungen) {
+        dieSichtungen.add(sichtung);
+        // m.addAttribute("meinesichtungen", dieSichtungen);
         return "redirect:/sichtung/meine";
     }
 
