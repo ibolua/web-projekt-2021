@@ -22,26 +22,25 @@ public class LoginController {
     // aufgerufen
     // Model-Attribut 'liste' initialisieren (Session-Scope!)
     @ModelAttribute("loggedinusername")
-    public void initListe(Model m) {
-        m.addAttribute("loggedinusername", new LoggedInUsername());
+    public void initLoggedInUser(Model m) {
+        m.addAttribute("loggedinusername", "");
     }
 
     // GET auf http://localhost:8080/login
     @GetMapping("/login")
-    public String loginGet(@ModelAttribute("loggedinusername") LoggedInUsername lst) {
+    public String loginGet(@ModelAttribute("loggedinusername") String loggedinusername) {
 
-        if (!lst.getUserName().isEmpty()) {
+        logger.error("GET LOGIN {}", loggedinusername);
+        if (!loggedinusername.isEmpty()) {
             return REDIRECT_SICHTUNG_MEINE_STRING;
         }
         return LOGING_STRING;
     }
 
     @PostMapping("/login")
-    public String loginPost(Model m, @RequestParam String username, @RequestParam String password,
-            @ModelAttribute("loggedinusername") LoggedInUsername lst) {
+    public String loginPost(Model m, @RequestParam String username, @RequestParam String password) {
 
-        int len = username.length();
-        String pwMitLaenge = username + Integer.toString(len);
+        String pwMitLaenge = username + username.length();
         String hinweis = "Hinweis: Das korrekte Passwort für " + username + " ist " + pwMitLaenge;
 
         if (username.isEmpty()) {
@@ -49,19 +48,18 @@ public class LoginController {
         }
 
         if (password.equals(pwMitLaenge)) {
-            lst.add(username);
             m.addAttribute("willkommenUser", "Willkommen " + username);
+            m.addAttribute("loggedinusername", username);
             return REDIRECT_SICHTUNG_MEINE_STRING;
-            // return "pwrichtig"; // pwRichtig View
         } else {
-            logger.warn("Falsche Anmeldedaten für Username: {}", username);
             m.addAttribute("hinweis", hinweis);
-
-            lst.add("");
+            m.addAttribute("loggedinusername", "");
+            logger.warn("Falsche Anmeldedaten für Username: {}", username);
             return LOGING_STRING;
         }
-
     }
+
+
 
     @GetMapping("/logout")
     public String logout(SessionStatus sessionstatus) {
