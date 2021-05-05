@@ -12,9 +12,9 @@ public class LoggedInUsername {
         this.userName = userName;
     }
 
-    public void add(String username2) {
-        setUserName(username2);
-    }
+    // public void add(String username2) {
+    //     setUserName(username2);
+    // }
 
 
 }
