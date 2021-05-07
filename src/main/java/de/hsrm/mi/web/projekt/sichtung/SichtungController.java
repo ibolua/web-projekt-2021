@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -34,6 +35,8 @@ public class SichtungController {
         Sichtung a = new Sichtung();
         Sichtung b = new Sichtung();
         Sichtung c = new Sichtung();
+        Sichtung d = new Sichtung();
+        Sichtung e = new Sichtung();
 
         a.setName("A_Willi");
         a.setOrt("Vollradisroda");
@@ -51,9 +54,21 @@ public class SichtungController {
         c.setDatum(localDate);
         c.setBeschreibung("17 Euro für eine Pizza gezahlt");
 
+        d.setName("D_Peter");
+        d.setOrt("Bielefeld");
+        d.setDatum(localDate);
+        d.setBeschreibung("17 Ziegelsteine");
+
+        e.setName("E_Hans");
+        e.setOrt("Berlin");
+        e.setDatum(localDate);
+        e.setBeschreibung("17 Haustiere");
+
         dieSicht.add(a);
         dieSicht.add(b);
         dieSicht.add(c);
+        dieSicht.add(d);
+        dieSicht.add(e);
 
         m.addAttribute("willkommenUser", "Willkommen " + loggedinusername);
         m.addAttribute("meinesichtungen", dieSicht);
@@ -93,10 +108,34 @@ public class SichtungController {
     // @ModelAttribute("meinesichtungen")
     public String sichtungMeineNeuPost(
         @ModelAttribute("meinesichtungform") Sichtung sichtung, Model m,
-        @ModelAttribute("meinesichtungen") ArrayList<Sichtung> dieSichtungen) {
+        @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen) {
         dieSichtungen.add(sichtung);
         // m.addAttribute("meinesichtungen", dieSichtungen);
         return "redirect:/sichtung/meine";
     }
 
+
+    @GetMapping("/meine/{index}")
+    public String editGet(
+        @ModelAttribute("meinesichtungform") Sichtung sichtung, Model m,
+        @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen,
+        @PathVariable int index) {
+
+        Sichtung aktSichtung = dieSichtungen.get(0);
+        m.addAttribute("meinesichtungform", aktSichtung);
+        logger.warn("GET LOGIN {}", aktSichtung.getName());
+        // dieSichtungen.remove(0);
+        dieSichtungen.remove(index);
+        return "redirect:/sichtung/meine/neu";
+    }
+    
+    @GetMapping("/meine/{index}/del")
+    public String deleteGet(
+        @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen,
+        @PathVariable int index) {
+
+            // dieSichtungen.remove(0);
+            dieSichtungen.remove(index);
+            return "redirect:/sichtung/meine";
+    }
 }
