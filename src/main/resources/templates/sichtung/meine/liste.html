@@ -34,11 +34,19 @@
     </thead>
 
     <tbody>
-        <tr th:each="sichtung: ${meinesichtungen}">
+        <tr th:each="sichtung, status: ${meinesichtungen}">
             <td th:text="${sichtung.datum}"></td>
             <td th:text="${sichtung.name}"></td>
             <td th:text="${sichtung.ort}"></td>
             <td th:text="${sichtung.beschreibung}"></td>
+            <td>
+                <a th:href="@{/sichtung/meine/} + ${status.index}" 
+                   th:text="edit"></a>
+            </td>
+            <td>
+                <a th:href="@{/sichtung/meine/} + ${status.index} + @{/del}" 
+                   th:text="del"></a>
+            </td>
         </tr>
     </tbody>
 </table>
