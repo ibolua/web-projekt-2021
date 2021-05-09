@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="description" content="Beschreibung">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link th:href="@{/css/sichtung/sichtung-style.css}" rel="stylesheet" />
     <title>Die Liste</title>
 </head>
@@ -16,7 +18,7 @@
 <h3 th:text="${willkommenUser}">Dummy User</h3>
 <section class="logout-field">
     <form action="/logout" method="GET">
-        <input type="submit" name="logoutbutton" value="Abmelden"> <br />
+        <input type="submit" name="logoutbutton" value="Abmelden" class="btn btn-danger"> <br />
     </form>
 </section>
 
@@ -26,9 +28,9 @@
     </form>
 </section>
 
-<table>
+<table class="table table-striped">
     <thead>
-        <tr class="headings">
+        <tr class="thead-dark">
             <th id="listheader" th:each="header: ${headers}" class="column-title" th:text="${header}"></th>
         </tr>
     </thead>
@@ -40,12 +42,10 @@
             <td th:text="${sichtung.ort}"></td>
             <td th:text="${sichtung.beschreibung}"></td>
             <td>
-                <a th:href="@{/sichtung/meine/} + ${status.index}" 
-                   th:text="edit"></a>
+                <a th:href="@{/sichtung/meine/} + ${status.index}" th:text="edit" class="btn btn-info btn-sm btn-block"></a>
             </td>
             <td>
-                <a th:href="@{/sichtung/meine/} + ${status.index} + @{/del}" 
-                   th:text="del"></a>
+                <a th:href="@{/sichtung/meine/} + ${status.index} + @{/del}" th:text="del" class="btn btn-danger btn-sm btn-block"></a>
             </td>
         </tr>
     </tbody>
