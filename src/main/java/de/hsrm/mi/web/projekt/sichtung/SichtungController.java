@@ -113,7 +113,7 @@ public class SichtungController {
         ModelMap model) {
         dieSichtungen.add(sichtung);
 
-        logger.error("/meine/neu loggedinusername = {}", model.get("loggedinusername"));
+        logger.warn("/meine/neu loggedinusername = {}", model.get("loggedinusername"));
         // m.addAttribute("meinesichtungen", dieSichtungen);
         return "redirect:/sichtung/meine";
     }
@@ -127,7 +127,7 @@ public class SichtungController {
 
         Sichtung aktSichtung = dieSichtungen.get(0);
         m.addAttribute("meinesichtungform", aktSichtung);
-        logger.warn("GET LOGIN {}", aktSichtung.getName());
+        logger.warn("/mein/index aktuelleSichtung: {}", aktSichtung.getName());
         // dieSichtungen.remove(0);
         dieSichtungen.remove(index);
         return "redirect:/sichtung/meine/neu";

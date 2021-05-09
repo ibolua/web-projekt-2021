@@ -30,7 +30,7 @@ public class LoginController {
     @GetMapping("/login")
     public String loginGet(@ModelAttribute("loggedinusername") String loggedinusername) {
 
-        logger.error("GET LOGIN {}", loggedinusername);
+        logger.info("GET LOGIN {}", loggedinusername);
         if (!loggedinusername.isEmpty()) {
             return REDIRECT_SICHTUNG_MEINE_STRING;
         }
