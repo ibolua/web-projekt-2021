@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -108,8 +109,11 @@ public class SichtungController {
     // @ModelAttribute("meinesichtungen")
     public String sichtungMeineNeuPost(
         @ModelAttribute("meinesichtungform") Sichtung sichtung, Model m,
-        @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen) {
+        @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen,
+        ModelMap model) {
         dieSichtungen.add(sichtung);
+
+        logger.error("/meine/neu loggedinusername = {}", model.get("loggedinusername"));
         // m.addAttribute("meinesichtungen", dieSichtungen);
         return "redirect:/sichtung/meine";
     }
