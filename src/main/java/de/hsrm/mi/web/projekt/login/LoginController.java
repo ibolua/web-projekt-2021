@@ -16,19 +16,20 @@ import org.springframework.web.bind.support.SessionStatus;
 public class LoginController {
     private static final String LOGING_STRING = "login"; // Compliant
     private static final String REDIRECT_SICHTUNG_MEINE_STRING = "redirect:/sichtung/meine"; // Compliant
+    private static final String LOGGEDINUSERNAME_STRING = "loggedinusername"; // Compliant
     Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     // Mit @ModelAttribute annotierte Methoden werden vor Requesthandler Methoden
     // aufgerufen
-    // Model-Attribut 'liste' initialisieren (Session-Scope!)
-    @ModelAttribute("loggedinusername")
+    // Model-Attribut 'loggedinusername' initialisieren (Session-Scope!)
+    @ModelAttribute(LOGGEDINUSERNAME_STRING)
     public void initLoggedInUser(Model m) {
-        m.addAttribute("loggedinusername", "");
+        m.addAttribute(LOGGEDINUSERNAME_STRING, "");
     }
 
     // GET auf http://localhost:8080/login
     @GetMapping("/login")
-    public String loginGet(@ModelAttribute("loggedinusername") String loggedinusername) {
+    public String loginGet(@ModelAttribute(LOGGEDINUSERNAME_STRING) String loggedinusername) {
 
         logger.info("GET LOGIN {}", loggedinusername);
         if (!loggedinusername.isEmpty()) {
@@ -49,17 +50,15 @@ public class LoginController {
 
         if (password.equals(pwMitLaenge)) {
             m.addAttribute("willkommenUser", "Willkommen " + username);
-            m.addAttribute("loggedinusername", username);
+            m.addAttribute(LOGGEDINUSERNAME_STRING, username);
             return REDIRECT_SICHTUNG_MEINE_STRING;
         } else {
             m.addAttribute("hinweis", hinweis);
-            m.addAttribute("loggedinusername", "");
+            m.addAttribute(LOGGEDINUSERNAME_STRING, "");
             logger.warn("Falsche Anmeldedaten für Username: {}", username);
             return LOGING_STRING;
         }
     }
-
-
 
     @GetMapping("/logout")
     public String logout(SessionStatus sessionstatus) {
