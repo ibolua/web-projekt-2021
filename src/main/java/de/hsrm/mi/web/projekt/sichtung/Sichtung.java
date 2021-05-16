@@ -26,7 +26,7 @@ public class Sichtung {
 
     @NotBlank(message = "Beschreibung darf nicht leer sein.")
     @Size(max = 80, message = "Beschreibung darf maximal 80 Zeichen lang sein.")
-    @Siebzehnhaft
+    @Siebzehnhaft(message = "{siebzehn.fehler}")
     private String beschreibung;
     
 
