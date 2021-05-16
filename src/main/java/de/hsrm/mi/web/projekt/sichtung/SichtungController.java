@@ -31,7 +31,7 @@ public class SichtungController {
     // Model-Attribut 'meinesichtungen' initialisieren (Session-Scope!)
     @ModelAttribute("meinesichtungen")
     public void initListe(Model m, @ModelAttribute("loggedinusername") String loggedinusername) {
-        ArrayList<Sichtung> dieSicht = new ArrayList<>();
+        ArrayList<Sichtung> dieSichtungenListe = new ArrayList<>();
 
         LocalDate localDate = LocalDate.now();
 
@@ -66,14 +66,14 @@ public class SichtungController {
         e.setDatum(localDate);
         e.setBeschreibung("17 Haustiere");
 
-        dieSicht.add(a);
-        dieSicht.add(b);
-        dieSicht.add(c);
-        dieSicht.add(d);
-        dieSicht.add(e);
+        dieSichtungenListe.add(a);
+        dieSichtungenListe.add(b);
+        dieSichtungenListe.add(c);
+        dieSichtungenListe.add(d);
+        dieSichtungenListe.add(e);
 
         m.addAttribute("willkommenUser", "Willkommen " + loggedinusername);
-        m.addAttribute("meinesichtungen", dieSicht);
+        m.addAttribute("meinesichtungen", dieSichtungenListe);
         m.addAttribute("headers", HEADERS);
     }
 
@@ -92,30 +92,30 @@ public class SichtungController {
 
     @PostMapping("/meine/neu")
     public String sichtungMeineNeuPost(@Valid @ModelAttribute("meinesichtungform") Sichtung sichtung,
-            BindingResult neueSichtungError, Model m, @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen) {
+            BindingResult neueSichtungError, Model m, @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe) {
 
         if (neueSichtungError.hasErrors()) {
             return "sichtung/meine/bearbeiten";
         }
 
-        dieSichtungen.add(sichtung);
+        dieSichtungenListe.add(sichtung);
         return "redirect:/sichtung/meine";
     }
 
     @GetMapping("/meine/{index}")
     public String editGet(@ModelAttribute("meinesichtungform") Sichtung sichtung, Model m,
-            @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen, @PathVariable int index) {
+            @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe, @PathVariable int index) {
 
-        Sichtung aktSichtung = dieSichtungen.get(0);
+        Sichtung aktSichtung = dieSichtungenListe.get(index);
         m.addAttribute("meinesichtungform", aktSichtung);
         logger.warn("/mein/index aktuelleSichtung: {}", aktSichtung.getName());
-        dieSichtungen.remove(index);
-        return "redirect:/sichtung/meine/bearbeiten";
+        dieSichtungenListe.remove(index);
+        return "redirect:/sichtung/meine/neu";
     }
 
     @GetMapping("/meine/{index}/del")
-    public String deleteGet(@ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen, @PathVariable int index) {
-        dieSichtungen.remove(index);
+    public String deleteGet(@ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe, @PathVariable int index) {
+        dieSichtungenListe.remove(index);
         return "redirect:/sichtung/meine";
     }
 
