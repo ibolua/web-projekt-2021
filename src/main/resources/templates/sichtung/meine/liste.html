@@ -14,6 +14,9 @@
 <body>
 
 </body>
+Wollen sie <a th:href="@{?sprache=de}">Deutsch</a>
+oder <a th:href="@{?sprache=nl}">Niederländisch</a>?
+
 <h1>Die Liste</h1>
 <h3 th:text="${willkommenUser}">Dummy User</h3>
 <section class="logout-field">
@@ -31,7 +34,11 @@
 <table class="table table-striped">
     <thead>
         <tr class="thead-dark">
-            <th id="listheader" th:each="header: ${headers}" class="column-title" th:text="${header}"></th>
+            <!-- <th id="listheader" th:each="header: ${headers}" class="column-title" th:text="${header}"></th> -->
+            <th th:text="#{sichtung.datum}" class="column-title"></th>
+            <th th:text="#{sichtung.name}" class="column-title"></th>
+            <th th:text="#{sichtung.ort}" class="column-title"></th>
+            <th th:text="#{sichtung.beschreibung}" class="column-title"></th>
         </tr>
     </thead>
 

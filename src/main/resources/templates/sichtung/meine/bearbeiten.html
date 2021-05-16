@@ -13,30 +13,30 @@
 
     <section class="formular-sichtung-abschnitt">
 
-        <h2>Bitte berichten Sie von Ihrer Sichtung</h2>
+        <h2 th:text="#{neueSichtungFormular.ueberschrift}">Bitte berichten Sie von Ihrer Sichtung</h2>
     
         <form class="sichtungsformular" th:action="@{/sichtung/meine/neu}" th:method="POST" th:object="${meinesichtungform}">
 
             <div>
-                <label for="benutzername">Benutzer</label>
+                <label for="benutzername" th:text="#{neueSichtungFormular.benutzer}">Benutzer</label>
                 <input type="text" th:field="*{name}" th:errorclass="invalidInputField" name="benutzername">
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="invalidErrorText"></div>
             </div>
             
             <div>
-                <label for="ort">Ort</label>
+                <label for="ort" th:text="#{neueSichtungFormular.ort}">Ort</label>
                 <input type="text" th:field="*{ort}" th:errorclass="invalidInputField" name="ort">
                 <div th:if="${#fields.hasErrors('ort')}" th:errors="*{ort}" th:errorclass="invalidErrorText"></div>
             </div>
             
             <div>
-                <label for="beschreibung">Beschreibung</label>
+                <label for="beschreibung" th:text="#{neueSichtungFormular.beschreibung}">Beschreibung</label>
                 <input type="text" th:field="*{beschreibung}" th:errorclass="invalidInputField" name="beschreibung">
                 <div th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}" th:errorclass="invalidErrorText"></div>
             </div>
 
             <div>
-                <label for="datum">Datum</label>
+                <label for="datum" th:text="#{neueSichtungFormular.datum}">Datum</label>
                 <input type="date" th:field="*{datum}" th:errorclass="invalidInputField" th:value="*{datum}" name="datum">
                 <div th:if="${#fields.hasErrors('datum')}" th:errors="*{datum}" th:errorclass="invalidErrorText"></div>
             </div>
