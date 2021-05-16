@@ -87,7 +87,7 @@ public class SichtungController {
     @GetMapping("/meine/neu")
     public String sichtungMeineNeuGet(Model m) {
         m.addAttribute("meinesichtungform", new Sichtung());
-        return "sichtung/meine/neu";
+        return "sichtung/meine/bearbeiten";
     }
 
     @PostMapping("/meine/neu")
@@ -95,8 +95,7 @@ public class SichtungController {
             BindingResult neueSichtungError, Model m, @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen) {
 
         if (neueSichtungError.hasErrors()) {
-            logger.error("neueSichtungError gefunden");
-            return "/sichtung/meine/neu";
+            return "sichtung/meine/bearbeiten";
         }
 
         dieSichtungen.add(sichtung);
@@ -111,7 +110,7 @@ public class SichtungController {
         m.addAttribute("meinesichtungform", aktSichtung);
         logger.warn("/mein/index aktuelleSichtung: {}", aktSichtung.getName());
         dieSichtungen.remove(index);
-        return "redirect:/sichtung/meine/neu";
+        return "redirect:/sichtung/meine/bearbeiten";
     }
 
     @GetMapping("/meine/{index}/del")
