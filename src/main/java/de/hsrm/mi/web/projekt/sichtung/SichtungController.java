@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -88,8 +91,14 @@ public class SichtungController {
     }
 
     @PostMapping("/meine/neu")
-    public String sichtungMeineNeuPost(@ModelAttribute("meinesichtungform") Sichtung sichtung, Model m,
-            @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen) {
+    public String sichtungMeineNeuPost(@Valid @ModelAttribute("meinesichtungform") Sichtung sichtung,
+            BindingResult neueSichtungError, Model m, @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungen) {
+
+        if (neueSichtungError.hasErrors()) {
+            logger.error("neueSichtungError gefunden");
+            return "/sichtung/meine/neu";
+        }
+
         dieSichtungen.add(sichtung);
         return "redirect:/sichtung/meine";
     }

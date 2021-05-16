@@ -5,3 +5,11 @@ label {
     margin-bottom: 1em; 
   }
   
+  .invalidInputField {
+    border: 1px solid red;
+  }
+
+  .invalidErrorText {
+    font-size: small;
+    color: red;
+  }
