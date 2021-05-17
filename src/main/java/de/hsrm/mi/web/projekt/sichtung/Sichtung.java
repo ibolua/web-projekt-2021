@@ -13,20 +13,20 @@ import de.hsrm.mi.web.projekt.validierung.Siebzehnhaft;
 
 public class Sichtung {
 
-    @NotBlank(message = "Name muss mindestens 3 Zeichen lang sein.")
-    @Size(min = 3)
+    @NotBlank(message = "{sichtung.name.notblank}")
+    @Size(min = 3, message = "{sichtung.name.min}")
     private String name;
 
-    @NotBlank(message = "Ort darf nicht leer sein.")
+    @NotBlank(message = "{sichtung.ort.notblank}")
     private String ort;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @NotNull(message = "Datum darf nicht leer sein")
+    @NotNull(message = "{sichtung.datum.notnull}")
     private LocalDate datum;
 
-    @NotBlank(message = "Beschreibung darf nicht leer sein.")
-    @Size(max = 80, message = "Beschreibung darf maximal 80 Zeichen lang sein.")
-    @Siebzehnhaft(message = "{siebzehn.fehler}")
+    @NotBlank(message = "{sichtung.beschreibung.notblank}")
+    @Size(max = 80, message = "{sichtung.beschreibung.size}")
+    @Siebzehnhaft(message = "{sichtung.beschreibung.siebzehn}")
     private String beschreibung;
     
 
