@@ -18,8 +18,8 @@ Wollen sie <a th:href="@{?sprache=de}">Deutsch</a>
 oder <a th:href="@{?sprache=nl}">Niederländisch</a>
 oder <a th:href="@{?sprache=en}">Englisch</a>?
 
-<h1>Die Liste</h1>
-<h3 th:text="${willkommenUser}">Dummy User</h3>
+<h2 th:text=#{list.ueberschrift}></h2>
+<h4 th:text="#{list.willkommen}"></h4>
 <section class="logout-field">
     <form action="/logout" method="GET">
         <input type="submit" name="logoutbutton" value="Abmelden" class="btn btn-danger"> <br />
@@ -36,10 +36,10 @@ oder <a th:href="@{?sprache=en}">Englisch</a>?
     <thead>
         <tr class="thead-dark">
             <!-- <th id="listheader" th:each="header: ${headers}" class="column-title" th:text="${header}"></th> -->
-            <th th:text="#{sichtung.datum}" class="column-title"></th>
-            <th th:text="#{sichtung.name}" class="column-title"></th>
-            <th th:text="#{sichtung.ort}" class="column-title"></th>
-            <th th:text="#{sichtung.beschreibung}" class="column-title"></th>
+            <th th:text="#{list.spaltenueberschrift.datum}" class="column-title"></th>
+            <th th:text="#{list.spaltenueberschrift.name}" class="column-title"></th>
+            <th th:text="#{list.spaltenueberschrift.ort}" class="column-title"></th>
+            <th th:text="#{list.spaltenueberschrift.beschreibung}" class="column-title"></th>
         </tr>
     </thead>
 
@@ -50,10 +50,10 @@ oder <a th:href="@{?sprache=en}">Englisch</a>?
             <td th:text="${sichtung.ort}"></td>
             <td th:text="${sichtung.beschreibung}"></td>
             <td>
-                <a th:href="@{/sichtung/meine/} + ${status.index}" th:text="edit" class="btn btn-info btn-sm btn-block"></a>
+                <a th:href="@{/sichtung/meine/} + ${status.index}" th:text="#{list.editierenButtion}" class="btn btn-info btn-sm btn-block"></a>
             </td>
             <td>
-                <a th:href="@{/sichtung/meine/} + ${status.index} + @{/del}" th:text="del" class="btn btn-danger btn-sm btn-block"></a>
+                <a th:href="@{/sichtung/meine/} + ${status.index} + @{/del}" th:text="#{list.loeschenButton}" class="btn btn-danger btn-sm btn-block"></a>
             </td>
         </tr>
     </tbody>
