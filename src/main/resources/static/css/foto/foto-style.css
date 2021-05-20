@@ -1,0 +1,12 @@
+h3 {
+    margin-bottom: 0;
+}
+
+.fotofeld {
+    padding: 0.2em 2em;
+}
+
+.fotofeld img {
+    width: 50%;
+    height: auto;
+}
