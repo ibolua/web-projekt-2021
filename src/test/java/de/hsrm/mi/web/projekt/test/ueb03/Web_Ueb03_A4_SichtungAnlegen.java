@@ -35,7 +35,7 @@ import de.hsrm.mi.web.projekt.sichtung.SichtungController;
 class Web_Ueb03_A4_SichtungAnlegen {
     private final String TESTNAME = "Joghurta";
     private final String TESTORT = "In der Ecke 17, 99441 Vollradisroda";
-    private final String TESTDATUM = "2022-07-17";
+    private final String TESTDATUM = "2020-07-17";
 	private final String TESTBESCHREIBUNG = "17 Waschbären schlichen um mein Auto";
 
 	@Autowired
