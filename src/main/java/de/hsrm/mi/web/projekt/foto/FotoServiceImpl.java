@@ -19,10 +19,18 @@ public class FotoServiceImpl implements FotoService {
     @Autowired
     private FotoRepository fotoRepository;
 
+    @Autowired
+    private AdressService adressservice;
+
     @Override
     public Foto fotoAbspeichern(Foto foto) {
         fbservice.aktualisiereMetadaten(foto);
         fbservice.orientiereFoto(foto);
+        
+        Optional<String> ortString = adressservice.findeAdresse(foto.getGeobreite(), foto.getGeolaenge());
+        if(ortString.isPresent()){
+            foto.setOrt(ortString.get());
+        }
         return fotoRepository.save(foto);
     }
 
