@@ -27,7 +27,6 @@ public class AdressServiceImpl implements AdressService {
         try {
             return Optional.of(result.getDisplay_name());
         } catch (Exception e) {
-
             return Optional.empty();
         }
 
