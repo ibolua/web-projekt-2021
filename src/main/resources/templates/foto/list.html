@@ -5,13 +5,26 @@
     <meta charset="utf-8">
     <meta name="description" content="Beschreibung">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link th:href="@{/css/foto/foto-style.css}" rel="stylesheet" />
     <title>Fotos</title>
 </head>
 
 
 <body>
+    Wollen sie <a th:href="@{?sprache=de}">Deutsch</a>
+    oder <a th:href="@{?sprache=nl}">Niederländisch</a>
+    oder <a th:href="@{?sprache=en}">Englisch</a>?
+
     <h2 th:text=#{foto.list.ueberschrift}></h2>
+
+    <section class="logout-field">
+        <form action="/logoutfoto" method="GET">
+            <input type="submit" name="logoutbutton" th:value="#{list.abmeldeButton}" class="btn btn-danger"> <br />
+        </form>
+    </section>
+
 
     <form class="fotoformular" th:action="@{/foto}" th:method="POST" enctype="multipart/form-data">
         <input type="file" name="datei" id="filefield">
@@ -24,7 +37,7 @@
         <span th:text="${foto.zeitstempel}"></span><br>
         <img th:src="@{/foto/} + ${foto.id}" alt="Foto Nummer: ${foto.id}"><br>
         <a target="_blank" th:href="|https://www.openstreetmap.org/#map=17/${foto.geobreite}/${foto.geolaenge}|" th:text="${foto.ort}">Schlumpfhausen</a><br>
-        <a th:href="@{/foto/} + ${foto.id} + @{/del}" th:text="#{foto.list.loeschenButton}" class="btn btn-danger btn-sm btn-block"></a>
+        <a th:href="@{/foto/} + ${foto.id} + @{/del}" th:text="#{foto.list.loeschenButton}" class="btn btn-danger btn-sm"></a>
     </div>
 
 

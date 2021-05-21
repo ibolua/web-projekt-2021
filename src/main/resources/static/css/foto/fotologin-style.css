@@ -1,0 +1,17 @@
+.login-field {
+    display: grid;
+    place-items: center;
+}
+
+input {
+    display: block; 
+  }
+  form div {
+    margin-bottom: 1em; 
+  }
+  
+.hinweis {
+  color:indianred;
+  margin-bottom: 1em;
+}
+  
