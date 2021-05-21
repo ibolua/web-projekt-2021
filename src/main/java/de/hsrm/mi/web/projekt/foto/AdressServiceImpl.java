@@ -23,10 +23,13 @@ public class AdressServiceImpl implements AdressService {
 
         var resttemplate = new RestTemplate();
         var result = resttemplate.getForObject(URL, Adresse.class);
-        if (result == null) {
+
+        try {
+            return Optional.of(result.getDisplay_name());
+        } catch (Exception e) {
+
             return Optional.empty();
         }
-        return Optional.of(result.getDisplay_name());
 
     }
 
