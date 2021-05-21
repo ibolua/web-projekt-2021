@@ -1,12 +1,16 @@
 package de.hsrm.mi.web.projekt.foto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
@@ -36,6 +40,17 @@ public class Foto {
 
     @Lob
     private byte[] fotodaten;
+
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Kommentar> kommentare = new ArrayList<>();
+
+    public List<Kommentar> getKommentare() {
+        return kommentare;
+    }
+
+    public void setKommentare(List<Kommentar> kommentare) {
+        this.kommentare = kommentare;
+    }
 
     public long getId() {
         return id;
