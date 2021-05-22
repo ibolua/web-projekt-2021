@@ -27,13 +27,15 @@
         
         <!-- <a th:href="@{/foto/} + ${foto.id} + @{/del}" th:text="#{foto.list.loeschenButton}" class="btn btn-danger btn-sm"></a> -->
 
-<!-- <div th:if="${session.containsKey('loggedinusername')}"> -->
-        <form class="kommentarfeld" th:action="@{/foto/} + ${foto.id} + @{/kommentar}" th:method="POST">
-            <label for="kommentar" th:text="Kommentar"></label>
-            <p>Ihr Kommentar lautet:</p>
-            <input type="text" name="kommentar"><br>
-            <input type="submit" name="okbutton" value="hinzufügen"> <br />
-        </form>
+        <!-- <div th:if="${session.containsKey('loggedinusername')}"> -->
+        <div th:if="${session.loggedinusername != null}">
+            <form class="kommentarfeld" th:action="@{/foto/} + ${foto.id} + @{/kommentar}" th:method="POST">
+                <label for="kommentar" th:text="Kommentar"></label>
+                <p>Ihr Kommentar lautet:</p>
+                <input type="text" name="kommentar"><br>
+                <input type="submit" name="okbutton" value="hinzufügen"> <br />
+            </form>
+        </div>
 
         <h3>Kommentare</h3>
         <div th:each="kommentar: ${foto.kommentare}">
