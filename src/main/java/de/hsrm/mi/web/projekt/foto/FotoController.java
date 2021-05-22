@@ -3,6 +3,8 @@ package de.hsrm.mi.web.projekt.foto;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,14 +100,30 @@ public class FotoController {
             // @SessionAttribute("loggedinusername") String loggedinusername,
             @ModelAttribute(LOGGEDINUSERNAME_STRING) String loggedinusername,
             @RequestParam String kommentar,
-            Model m) {
+            Model m,
+            HttpSession session) {
         logger.warn("POST Kommentar ID: {}", id);
         logger.warn("POST Kommentar LOGGEDINUSERNAME: {}", loggedinusername);
 
-        String test = m.getAttribute(LOGGEDINUSERNAME_STRING).toString();
+        var test = m.getAttribute(LOGGEDINUSERNAME_STRING).toString();
         logger.warn("TEST Kommentar LOGGEDINUSERNAME: {}", test);
-        if (isNotBlankOrIsNotEmpty(kommentar) && (isNotBlankOrIsNotEmpty(loggedinusername))) {
-            fotoservice.fotoKommentieren(id, loggedinusername, kommentar);
+
+
+        // VERSUCH MIT HttpSession
+        var loggedinusernameSessionObject = session.getAttribute(LOGGEDINUSERNAME_STRING);
+        String loggedinusernameSTRING;
+        if(loggedinusernameSessionObject != null) {
+            loggedinusernameSTRING = loggedinusernameSessionObject.toString();
+            logger.error("/FOTO LOGGEDINUSERNAME: {}", loggedinusernameSTRING);
+        }
+        logger.error("/FOTO Kommentar sessionObject: {}", loggedinusernameSessionObject);
+        // VERSUCH MIT HttpSession
+
+        // if (isNotBlankOrIsNotEmpty(kommentar) && (isNotBlankOrIsNotEmpty(loggedinusername))) {
+        if (isNotBlankOrIsNotEmpty(kommentar) && loggedinusernameSessionObject != null) {
+            loggedinusernameSTRING = loggedinusernameSessionObject.toString();
+            fotoservice.fotoKommentieren(id, loggedinusernameSTRING, kommentar);
+            // fotoservice.fotoKommentieren(id, loggedinusername, kommentar);
         }
         return "redirect:/foto/" + id + "/kommentar";
     }
