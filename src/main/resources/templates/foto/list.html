@@ -38,6 +38,7 @@
         <img th:src="@{/foto/} + ${foto.id}" alt="Foto Nummer: ${foto.id}"><br>
         <a target="_blank" th:href="|https://www.openstreetmap.org/#map=17/${foto.geobreite}/${foto.geolaenge}|" th:text="${foto.ort}">Schlumpfhausen</a><br>
         <a th:href="@{/foto/} + ${foto.id} + @{/del}" th:text="#{foto.list.loeschenButton}" class="btn btn-danger btn-sm"></a>
+        <a th:href="@{/foto/} + ${foto.id} + @{/kommentar}" th:text="#{foto.list.kommentieren}" class="btn btn-info btn-sm"></a>
     </div>
 
 

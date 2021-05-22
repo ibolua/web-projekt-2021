@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Beschreibung">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link th:href="@{/css/foto/foto-style.css}" rel="stylesheet" />
+    <title>Fotos</title>
+</head>
+
+
+<body>
+    <h2>Kommentare</h2>
+    <a th:href="@{/foto}">Zurück zur Foto-Übersicht</a>
+
+
+
+    <div class="fotofeld">
+        <h3 th:text="${foto.dateiname}"></h3>
+        <span th:text="${foto.zeitstempel}"></span><br>
+        <img th:src="@{/foto/} + ${foto.id}" alt="Foto Nummer: ${foto.id}"><br>
+        <a target="_blank" th:href="|https://www.openstreetmap.org/#map=17/${foto.geobreite}/${foto.geolaenge}|" th:text="${foto.ort}">Schlumpfhausen</a><br>
+
+        
+        <!-- <a th:href="@{/foto/} + ${foto.id} + @{/del}" th:text="#{foto.list.loeschenButton}" class="btn btn-danger btn-sm"></a> -->
+
+<!-- <div th:if="${session.containsKey('loggedinusername')}"> -->
+        <form class="kommentarfeld" th:action="@{/foto/} + ${foto.id} + @{/kommentar}" th:method="POST">
+            <label for="kommentar" th:text="Kommentar"></label>
+            <p>Ihr Kommentar lautet:</p>
+            <input type="text" name="kommentar"><br>
+            <input type="submit" name="okbutton" value="hinzufügen"> <br />
+        </form>
+
+        <h3>Kommentare</h3>
+        <div th:each="kommentar: ${foto.kommentare}">
+            <!-- <p th:text="${kommentar.zeitpunkt} - ${kommentar.autor}"></p> -->
+            <!-- <p th:text="${kommentar.zeitpunkt} + ' - ' + ${kommentar.autor}"></p>
+            <p th:text="${kommentar.text}"></p> -->
+            <span th:text="${kommentar.zeitpunkt} + ' - ' + ${kommentar.autor}"></span> <br>
+            <span th:text="${kommentar.text}"></span>
+            <br><br>
+        </div>
+    </div>
+<!-- </div> -->
+
+</body>

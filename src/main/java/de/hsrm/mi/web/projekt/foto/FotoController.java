@@ -3,18 +3,30 @@ package de.hsrm.mi.web.projekt.foto;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+// @SessionAttributes(names = { "loggedinusername" })
 public class FotoController {
     private static final int MINDESTDATEIGROESSE = 17;
+    private static final String FOTO_LOGIN_STRING = "foto/login"; // Compliant
+    private static final String FOTO_LIST_STRING = "foto/list"; // Compliant
+    private static final String LOGGEDINUSERNAME_STRING = "loggedinusername"; // Compliant
+    Logger logger = LoggerFactory.getLogger(FotoController.class);
     @Autowired
     FotoService fotoservice;
 
@@ -36,13 +48,13 @@ public class FotoController {
         }
 
         m.addAttribute("fotos", fotoservice.alleFotosNachZeitstempelSortiert());
-        return "foto/list";
+        return FOTO_LIST_STRING;
     }
 
     @GetMapping("/foto")
     public String fotoGet(Model m) {
         m.addAttribute("fotos", fotoservice.alleFotosNachZeitstempelSortiert());
-        return "foto/list";
+        return FOTO_LIST_STRING;
     }
 
     @GetMapping("/foto/{id}")
@@ -50,7 +62,7 @@ public class FotoController {
         Optional<Foto> fotoOptional = fotoservice.fotoAbfragenNachId(id);
 
         if (fotoOptional.isPresent()) {
-            Foto foto = fotoOptional.get();
+            var foto = fotoOptional.get();
             return ResponseEntity.ok()
                         .header("Content-Type", foto.getMimetype())
                         .body(foto.getFotodaten());
@@ -64,4 +76,48 @@ public class FotoController {
         return "redirect:/foto";
     }
 
+    @GetMapping("foto/{id}/kommentar")
+    public String fotoKommentarGet(@PathVariable Long id, Model m,
+            // @SessionAttribute("loggedinusername") String loggedinusername)
+            @ModelAttribute(LOGGEDINUSERNAME_STRING) String loggedinusername)
+            {
+        Optional<Foto> foto = fotoservice.fotoAbfragenNachId(id);
+              
+        // logger.warn("GET Kommentar LOGGEDINUSERNAME SessionAttribute: {}", loggedinusername);
+        logger.warn("GET Kommentar LOGGEDINUSERNAME ModelAttribute: {}", loggedinusername);
+
+        if (foto.isPresent()) {
+            m.addAttribute("foto", foto.get());
+            return "foto/kommentare";
+        }
+        return FOTO_LIST_STRING;
+    }
+
+    @PostMapping("foto/{id}/kommentar")
+    public String fotoKommentarPost(@PathVariable Long id,
+            // @SessionAttribute("loggedinusername") String loggedinusername,
+            @ModelAttribute(LOGGEDINUSERNAME_STRING) String loggedinusername,
+            @RequestParam String kommentar,
+            Model m) {
+        logger.warn("POST Kommentar ID: {}", id);
+        logger.warn("POST Kommentar LOGGEDINUSERNAME: {}", loggedinusername);
+
+        String test = m.getAttribute(LOGGEDINUSERNAME_STRING).toString();
+        logger.warn("TEST Kommentar LOGGEDINUSERNAME: {}", test);
+        if (isNotBlankOrIsNotEmpty(kommentar) && (isNotBlankOrIsNotEmpty(loggedinusername))) {
+            fotoservice.fotoKommentieren(id, loggedinusername, kommentar);
+        }
+        return "redirect:/foto/" + id + "/kommentar";
+    }
+
+    private static boolean isNotBlankOrIsNotEmpty(String s) {
+        return !(s.isBlank() || s.isEmpty());
+    }
+
+    @GetMapping("/logoutfoto2")
+    public String logout(SessionStatus sessionstatus) {
+        // Session aktiv beenden
+        sessionstatus.setComplete();
+        return FOTO_LOGIN_STRING;
+    }
 }

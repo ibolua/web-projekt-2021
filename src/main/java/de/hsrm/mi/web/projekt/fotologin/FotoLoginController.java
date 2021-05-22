@@ -15,7 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(names = { "loggedinusername" })
 public class FotoLoginController {
     private static final String LOGING_STRING = "foto/login"; // Compliant
-    private static final String REDIRECT_SICHTUNG_MEINE_STRING = "redirect:/foto"; // Compliant
+    private static final String REDIRECT_FOTO_STRING = "redirect:/foto"; // Compliant
     private static final String LOGGEDINUSERNAME_STRING = "loggedinusername"; // Compliant
     Logger logger = LoggerFactory.getLogger(FotoLoginController.class);
 
@@ -33,7 +33,7 @@ public class FotoLoginController {
 
         logger.info("GET LOGIN {}", loggedinusername);
         if (!loggedinusername.isEmpty()) {
-            return REDIRECT_SICHTUNG_MEINE_STRING;
+            return REDIRECT_FOTO_STRING;
         }
         return LOGING_STRING;
     }
@@ -49,15 +49,16 @@ public class FotoLoginController {
         }
 
         if (password.equals(pwMitLaenge)) {
+            logger.warn("RICHTIGE Anmeldedaten für Username: {}", username);
             m.addAttribute("willkommenUser", "Willkommen " + username);
             m.addAttribute(LOGGEDINUSERNAME_STRING, username);
-            return REDIRECT_SICHTUNG_MEINE_STRING;
+            return REDIRECT_FOTO_STRING;
         } else {
             // m.addAttribute("hinweis", hinweis);
             m.addAttribute("username", username);
             m.addAttribute("pwMitLaenge", pwMitLaenge);
             m.addAttribute(LOGGEDINUSERNAME_STRING, "");
-            logger.warn("Falsche Anmeldedaten für Username: {}", username);
+            logger.warn("FALSCHE Anmeldedaten für Username: {}", username);
             return LOGING_STRING;
         }
     }
