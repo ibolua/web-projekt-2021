@@ -14,7 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @SessionAttributes(names = { "loggedinusername" })
 public class LoginController {
-    private static final String LOGING_STRING = "login"; // Compliant
+    private static final String LOGIN_STRING = "login"; // Compliant
     private static final String REDIRECT_SICHTUNG_MEINE_STRING = "redirect:/sichtung/meine"; // Compliant
     private static final String LOGGEDINUSERNAME_STRING = "loggedinusername"; // Compliant
     Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -35,7 +35,7 @@ public class LoginController {
         if (!loggedinusername.isEmpty()) {
             return REDIRECT_SICHTUNG_MEINE_STRING;
         }
-        return LOGING_STRING;
+        return LOGIN_STRING;
     }
 
     @PostMapping("/login")
@@ -45,7 +45,7 @@ public class LoginController {
         // String hinweis = "Hinweis: Das korrekte Passwort für " + username + " ist " + pwMitLaenge;
 
         if (username.isEmpty()) {
-            return LOGING_STRING;
+            return LOGIN_STRING;
         }
 
         if (password.equals(pwMitLaenge)) {
@@ -58,7 +58,7 @@ public class LoginController {
             m.addAttribute("pwMitLaenge", pwMitLaenge);
             m.addAttribute(LOGGEDINUSERNAME_STRING, "");
             logger.warn("Falsche Anmeldedaten für Username: {}", username);
-            return LOGING_STRING;
+            return LOGIN_STRING;
         }
     }
 
@@ -66,7 +66,7 @@ public class LoginController {
     public String logout(SessionStatus sessionstatus) {
         // Session aktiv beenden
         sessionstatus.setComplete();
-        return LOGING_STRING;
+        return LOGIN_STRING;
     }
 
 }
