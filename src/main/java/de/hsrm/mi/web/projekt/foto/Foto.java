@@ -16,11 +16,16 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 public class Foto {
     
     // private static final double Null = 0;
-
+    
     @Id @GeneratedValue
     private long id;
 
@@ -39,9 +44,12 @@ public class Foto {
     private double geobreite = 0f;
 
     @Lob
+    @JsonIgnore
+    // @JsonIdentityReference(alwaysAsId = true)
     private byte[] fotodaten;
-
+    
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Kommentar> kommentare = new ArrayList<>();
 
     public List<Kommentar> getKommentare() {
