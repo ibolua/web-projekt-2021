@@ -18,17 +18,17 @@ Wollen sie <a th:href="@{?sprache=de}">Deutsch</a>
 oder <a th:href="@{?sprache=nl}">Niederländisch</a>
 oder <a th:href="@{?sprache=en}">Englisch</a>?
 
-<h2 th:text=#{list.ueberschrift}></h2>
-<h4 th:text="#{list.willkommen}"></h4>
+<h2 th:text=#{sichtung.list.ueberschrift}></h2>
+<h4 th:text="#{sichtung.list.willkommen}"></h4>
 <section class="logout-field">
     <form action="/logout" method="GET">
-        <input type="submit" name="logoutbutton" th:value="#{list.abmeldeButton}" class="btn btn-danger"> <br />
+        <input type="submit" name="logoutbutton" th:value="#{sichtung.list.abmeldeButton}" class="btn btn-danger"> <br />
     </form>
 </section>
 
 <section class="neue-sichtung-feld">
     <form action="/sichtung/meine/neu" method="GET">
-        <input type="submit" name="neueSichtungButton" th:value="#{list.neuesichtungButton}" class="btn btn-success">
+        <input type="submit" name="neueSichtungButton" th:value="#{sichtung.list.neuesichtungButton}" class="btn btn-success">
         <br />
     </form>
 </section>
@@ -37,10 +37,10 @@ oder <a th:href="@{?sprache=en}">Englisch</a>?
     <thead>
         <tr class="thead-dark">
             <!-- <th id="listheader" th:each="header: ${headers}" class="column-title" th:text="${header}"></th> -->
-            <th th:text="#{list.spaltenueberschrift.datum}" class="column-title"></th>
-            <th th:text="#{list.spaltenueberschrift.name}" class="column-title"></th>
-            <th th:text="#{list.spaltenueberschrift.ort}" class="column-title"></th>
-            <th th:text="#{list.spaltenueberschrift.beschreibung}" class="column-title"></th>
+            <th th:text="#{sichtung.list.spaltenueberschrift.datum}" class="column-title"></th>
+            <th th:text="#{sichtung.list.spaltenueberschrift.name}" class="column-title"></th>
+            <th th:text="#{sichtung.list.spaltenueberschrift.ort}" class="column-title"></th>
+            <th th:text="#{sichtung.list.spaltenueberschrift.beschreibung}" class="column-title"></th>
         </tr>
     </thead>
 
@@ -51,11 +51,11 @@ oder <a th:href="@{?sprache=en}">Englisch</a>?
             <td th:text="${sichtung.ort}"></td>
             <td th:text="${sichtung.beschreibung}"></td>
             <td>
-                <a th:href="@{/sichtung/meine/} + ${status.index}" th:text="#{list.editierenButton}"
+                <a th:href="@{/sichtung/meine/} + ${status.index}" th:text="#{sichtung.list.editierenButton}"
                     class="btn btn-info btn-sm btn-block"></a>
             </td>
             <td>
-                <a th:href="@{/sichtung/meine/} + ${status.index} + @{/del}" th:text="#{list.loeschenButton}"
+                <a th:href="@{/sichtung/meine/} + ${status.index} + @{/del}" th:text="#{sichtung.list.loeschenButton}"
                     class="btn btn-danger btn-sm btn-block"></a>
             </td>
         </tr>
