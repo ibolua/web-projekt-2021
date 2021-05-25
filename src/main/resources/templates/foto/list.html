@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link th:href="@{/css/foto/foto-style.css}" rel="stylesheet" />
-    <title>Fotos</title>
+    <title th:title=#{foto.list.ueberschrift}></title>
 </head>
 
 
@@ -27,8 +27,8 @@
 
 
     <form class="fotoformular" th:action="@{/foto}" th:method="POST" enctype="multipart/form-data">
-        <input type="file" name="datei" id="filefield">
-        <input type="submit" name="okbutton" id="okbutton">
+        <input type="file" name="datei" id="filefield" th:value="#{foto.list.dateiauswaehlen}">
+        <input type="submit" name="okbutton" id="okbutton" th:value="#{foto.list.senden}">
     </form>
 
 

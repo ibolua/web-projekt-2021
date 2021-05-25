@@ -13,8 +13,8 @@
 
 
 <body>
-    <h2>Kommentare</h2>
-    <a th:href="@{/foto}">Zurück zur Foto-Übersicht</a>
+    <h2 th:text="#{foto.kommentare.ueberschrift}"></h2>
+    <a th:text="#{foto.kommentare.zurueckFotoUebersicht}" th:href="@{/foto}"></a>
 
 
 
@@ -24,29 +24,26 @@
         <img th:src="@{/foto/} + ${foto.id}" alt="Foto Nummer: ${foto.id}"><br>
         <a target="_blank" th:href="|https://www.openstreetmap.org/#map=17/${foto.geobreite}/${foto.geolaenge}|" th:text="${foto.ort}">Schlumpfhausen</a><br>
 
-        
-        <!-- <a th:href="@{/foto/} + ${foto.id} + @{/del}" th:text="#{foto.list.loeschenButton}" class="btn btn-danger btn-sm"></a> -->
-
-        <!-- <div th:if="${session.containsKey('loggedinusername')}"> -->
         <div th:if="${session.loggedinusername != null}">
             <form class="kommentarfeld" th:action="@{/foto/} + ${foto.id} + @{/kommentar}" th:method="POST">
-                <label for="kommentar" th:text="Kommentar"></label>
-                <p>Ihr Kommentar lautet:</p>
-                <input type="text" name="kommentar"><br>
-                <input type="submit" name="okbutton" value="hinzufügen"> <br />
+                <label for="kommentar">
+                    <p th:text="#{foto.kommentare.ihrKommentarlautet}"></p>
+                    <input type="text" name="kommentar"><br>
+                    <input type="submit" name="okbutton" th:value="#{foto.kommentare.hinzufuegen}"> <br />
+                </label>
             </form>
         </div>
 
-        <h3>Kommentare</h3>
-        <div th:each="kommentar: ${foto.kommentare}">
-            <!-- <p th:text="${kommentar.zeitpunkt} - ${kommentar.autor}"></p> -->
-            <!-- <p th:text="${kommentar.zeitpunkt} + ' - ' + ${kommentar.autor}"></p>
-            <p th:text="${kommentar.text}"></p> -->
-            <span th:text="${kommentar.zeitpunkt} + ' - ' + ${kommentar.autor}"></span> <br>
-            <span th:text="${kommentar.text}"></span>
-            <br><br>
+        <div class="kommentare">
+            <h3 th:text="#{foto.kommentare.unterueberschrift}"></h3>
+            <div th:each="kommentar: ${foto.kommentare}">
+                <span th:text="${kommentar.zeitpunkt} + ' - ' + ${kommentar.autor}"></span> <br>
+                <span th:text="${kommentar.text}"></span>
+                <br><br>
+            </div>
         </div>
+
     </div>
-<!-- </div> -->
+
 
 </body>
