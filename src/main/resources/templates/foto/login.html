@@ -5,33 +5,46 @@
     <meta charset="utf-8">
     <meta name="description" content="Beschreibung">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link th:href="@{/css/foto/fotologin-style.css}" rel="stylesheet" />
-    <title>Foto Login</title>
+    <link th:href="@{/css/login/login-style.css}" rel="stylesheet" />
+    <title th:text="#{foto.login.title}"></title>
 </head>
 
 
 <body>
 
-    <section class="login-field">
-        <h2 th:text="#{foto.login.ueberschrift}"></h2>
-        <span th:text="${username != null} ? #{foto.login.hinweis(${username}, ${pwMitLaenge})}" class="hinweis"></span>
-        <form action="/fotologin" method="POST">
-            <div class="form-group">
-                <input type="text" name="username" class="form-control" id="username"
-                    th:placeholder="#{foto.login.benutzername}">
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1 th:text="#{foto.login.ueberschrift}"></h1>
             </div>
-            <div class="form-group">
-                <input type="password" name="password" class="form-control" id="password"
-                    th:placeholder="#{foto.login.passwort}">
+
+
+            <div class="login-form">
+                <span th:text="${username != null} ? #{foto.login.hinweis(${username}, ${pwMitLaenge})}"
+                    class="hinweis"></span>
+
+                <form action="/fotologin" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" id="username"
+                            th:placeholder="#{foto.login.benutzername}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" id="password"
+                            th:placeholder="#{foto.login.passwort}">
+                    </div>
+                    <button type="submit" name="okbutton" value="OK" class="btn btn-primary btn-large btn-block"
+                        th:text="#{foto.login.anmeldenButton}"></button>
+                </form>
+
+                <form action="/" method="GET">
+                    <button type="submit" name="zurueckButton" value="Zurueck" class="btn btn-secondary"
+                        th:text="#{foto.login.zurueckButton}"></button>
+                </form>
+
             </div>
-            <button type="submit" name="okbutton" value="OK" class="btn btn-primary"
-                th:text="#{foto.login.anmeldenButton}"></button>
-            <button type="button" name="cancelbutton" value="Cancel" class="cancelbutton btn btn-secondary"
-                th:text="#{foto.login.abbrechenButton}"></button> <br>
-        </form>
-    </section>
+        </div>
+    </div>
+
 
 </body>
 

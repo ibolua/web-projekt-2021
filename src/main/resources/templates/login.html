@@ -5,33 +5,45 @@
     <meta charset="utf-8">
     <meta name="description" content="Beschreibung">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link th:href="@{/css/login/login-style.css}" rel="stylesheet" />
-    <title>Web-Projekt</title>
+    <title th:text="#{sichtung.login.title}"></title>
 </head>
 
 
 <body>
 
-    <section class="login-field">
-        <h2 th:text="#{sichtung.login.ueberschrift}"></h2>
-        <span th:text="${username != null} ? #{sichtung.login.hinweis(${username}, ${pwMitLaenge})}" class="hinweis"></span>
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <input type="text" name="username" class="form-control" id="username"
-                    th:placeholder="#{sichtung.login.benutzername}">
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1 th:text="#{sichtung.login.ueberschrift}"></h1>
             </div>
-            <div class="form-group">
-                <input type="password" name="password" class="form-control" id="password"
-                    th:placeholder="#{sichtung.login.passwort}">
+
+
+            <div class="login-form">
+                <span th:text="${username != null} ? #{sichtung.login.hinweis(${username}, ${pwMitLaenge})}"
+                    class="hinweis"></span>
+
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" id="username"
+                            th:placeholder="#{sichtung.login.benutzername}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" id="password"
+                            th:placeholder="#{sichtung.login.passwort}">
+                    </div>
+                    <button type="submit" name="okbutton" value="OK" class="btn btn-primary btn-large btn-block"
+                        th:text="#{sichtung.login.anmeldenButton}"></button>
+                </form>
+
+                <form action="/" method="GET">
+                    <button type="submit" name="cancelbutton" value="Cancel" class="cancelbutton btn btn-secondary"
+                        th:text="#{sichtung.login.zurueckButton}"></button>
+                </form>
+
             </div>
-            <button type="submit" name="okbutton" value="OK" class="btn btn-primary"
-                th:text="#{sichtung.login.anmeldenButton}"></button>
-            <button type="button" name="cancelbutton" value="Cancel" class="cancelbutton btn btn-secondary"
-                th:text="#{sichtung.login.abbrechenButton}"></button> <br>
-        </form>
-    </section>
+        </div>
+    </div>
 
 </body>
 

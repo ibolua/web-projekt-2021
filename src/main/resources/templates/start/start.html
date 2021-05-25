@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Beschreibung">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link th:href="@{/css/login/login-style.css}" rel="stylesheet" />
+    <title th:text="#{start.login}"></title>
+</head>
+
+
+<body>
+
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1 th:text=#{start.waehleaus}></h1>
+            </div>
+
+            <div class="login-form">
+                <form action="/login" method="GET">
+                    <button th:text=#{start.sichtungen.login} class="btn btn-primary btn-large btn-block" type="submit"></button>
+                </form>
+                <form action="/fotologin" method="GET">
+                    <button th:text=#{start.foto.login} class="btn btn-primary btn-large btn-block" type="submit"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
