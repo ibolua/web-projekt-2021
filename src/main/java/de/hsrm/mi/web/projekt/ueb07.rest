@@ -8,7 +8,5 @@ GET http://localhost:2222/api/foto
 
 DELETE  http://localhost:2222/api/foto/1/kommentar/4
 
-
 ###
-
 DELETE http://localhost:2222/api/foto/7

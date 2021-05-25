@@ -13,7 +13,7 @@ public class InternationalConfiguration implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver resolver = new SessionLocaleResolver();
+        var resolver = new SessionLocaleResolver();
         // Optional: Browser-Präferenz übersteuern
         // resolver.setDefaultLocale(Locale.GERMANY);
         return resolver;
@@ -21,7 +21,7 @@ public class InternationalConfiguration implements WebMvcConfigurer {
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+        var interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("sprache");
         return interceptor;
     }

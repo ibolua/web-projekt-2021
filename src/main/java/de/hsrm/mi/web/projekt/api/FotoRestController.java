@@ -13,7 +13,6 @@ import de.hsrm.mi.web.projekt.foto.Foto;
 import de.hsrm.mi.web.projekt.foto.FotoService;
 import de.hsrm.mi.web.projekt.foto.Kommentar;
 
-
 @RestController
 @RequestMapping("/api/foto")
 public class FotoRestController {
@@ -23,10 +22,10 @@ public class FotoRestController {
 
     Foto foto;
 
-    @GetMapping("") 
+    @GetMapping("")
     public List<Foto> getApiFoto() {
         return fotoservice.alleFotosNachZeitstempelSortiert();
-    } 
+    }
 
     @DeleteMapping("/{id}")
     public void deleteApiFoto(@PathVariable long id) {

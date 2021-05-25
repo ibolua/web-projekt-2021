@@ -8,5 +8,5 @@ public class Adresse implements Serializable {
     public String getDisplay_name() {
         return display_name;
     }
-    
+
 }

@@ -40,9 +40,7 @@ public class FotoLoginController {
 
     @PostMapping("/fotologin")
     public String loginPost(Model m, @RequestParam String username, @RequestParam String password) {
-
         String pwMitLaenge = username + username.length();
-        // String hinweis = "Hinweis: Das korrekte Passwort für " + username + " ist " + pwMitLaenge;
 
         if (username.isEmpty()) {
             return LOGING_STRING;
@@ -54,7 +52,6 @@ public class FotoLoginController {
             m.addAttribute(LOGGEDINUSERNAME_STRING, username);
             return REDIRECT_FOTO_STRING;
         } else {
-            // m.addAttribute("hinweis", hinweis);
             m.addAttribute("username", username);
             m.addAttribute("pwMitLaenge", pwMitLaenge);
             m.addAttribute(LOGGEDINUSERNAME_STRING, "");

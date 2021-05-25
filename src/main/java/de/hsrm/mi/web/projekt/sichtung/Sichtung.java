@@ -3,7 +3,6 @@ package de.hsrm.mi.web.projekt.sichtung;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,11 +27,11 @@ public class Sichtung {
     @Size(max = 80, message = "{sichtung.beschreibung.size}")
     @Siebzehnhaft(message = "{sichtung.beschreibung.siebzehn}")
     private String beschreibung;
-    
 
     public String getName() {
         return this.name;
     }
+
     public void setName(String name) {
         this.name = name;
     }

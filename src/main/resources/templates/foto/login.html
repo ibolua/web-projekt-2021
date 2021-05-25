@@ -19,14 +19,17 @@
         <span th:text="${username != null} ? #{login.hinweis(${username}, ${pwMitLaenge})}" class="hinweis"></span>
         <form action="/fotologin" method="POST">
             <div class="form-group">
-                <input type="text" name="username" class="form-control" id="username" th:placeholder="#{login.benutzername}" >
+                <input type="text" name="username" class="form-control" id="username"
+                    th:placeholder="#{login.benutzername}">
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" id="password" th:placeholder="#{login.passwort}">
+                <input type="password" name="password" class="form-control" id="password"
+                    th:placeholder="#{login.passwort}">
             </div>
-            <button type="submit" name="okbutton" value="OK" class="btn btn-primary" th:text="#{login.anmeldenButton}">Anmelden</button>
-            <button type="submit" name="cancelbutton" value="Cancel"
-                class="cancelbutton btn btn-secondary" th:text="#{login.abbrechenButton}">Abbrechen</button> <br>
+            <button type="submit" name="okbutton" value="OK" class="btn btn-primary"
+                th:text="#{login.anmeldenButton}">Anmelden</button>
+            <button type="submit" name="cancelbutton" value="Cancel" class="cancelbutton btn btn-secondary"
+                th:text="#{login.abbrechenButton}">Abbrechen</button> <br>
         </form>
     </section>
 

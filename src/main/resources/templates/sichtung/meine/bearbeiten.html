@@ -14,30 +14,33 @@
     <section class="formular-sichtung-abschnitt">
 
         <h2 th:text="#{bearbeiten.formular.ueberschrift}"></h2>
-    
-        <form class="sichtungsformular" th:action="@{/sichtung/meine/neu}" th:method="POST" th:object="${meinesichtungform}">
+
+        <form class="sichtungsformular" th:action="@{/sichtung/meine/neu}" th:method="POST"
+            th:object="${meinesichtungform}">
 
             <div>
                 <label for="benutzername" th:text="#{bearbeiten.formular.benutzer}"></label>
                 <input type="text" th:field="*{name}" th:errorclass="invalidInputField" name="benutzername">
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="invalidErrorText"></div>
             </div>
-            
+
             <div>
                 <label for="ort" th:text="#{bearbeiten.formular.ort}"></label>
                 <input type="text" th:field="*{ort}" th:errorclass="invalidInputField" name="ort">
                 <div th:if="${#fields.hasErrors('ort')}" th:errors="*{ort}" th:errorclass="invalidErrorText"></div>
             </div>
-            
+
             <div>
                 <label for="beschreibung" th:text="#{bearbeiten.formular.beschreibung}"></label>
                 <input type="text" th:field="*{beschreibung}" th:errorclass="invalidInputField" name="beschreibung">
-                <div th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}" th:errorclass="invalidErrorText"></div>
+                <div th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}"
+                    th:errorclass="invalidErrorText"></div>
             </div>
 
             <div>
                 <label for="datum" th:text="#{bearbeiten.formular.datum}"></label>
-                <input type="date" th:field="*{datum}" th:errorclass="invalidInputField" th:value="*{datum}" name="datum">
+                <input type="date" th:field="*{datum}" th:errorclass="invalidInputField" th:value="*{datum}"
+                    name="datum">
                 <div th:if="${#fields.hasErrors('datum')}" th:errors="*{datum}" th:errorclass="invalidErrorText"></div>
             </div>
             <div>

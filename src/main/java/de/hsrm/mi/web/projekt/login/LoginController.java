@@ -40,9 +40,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String loginPost(Model m, @RequestParam String username, @RequestParam String password) {
-
         String pwMitLaenge = username + username.length();
-        // String hinweis = "Hinweis: Das korrekte Passwort für " + username + " ist " + pwMitLaenge;
 
         if (username.isEmpty()) {
             return LOGIN_STRING;
@@ -53,7 +51,6 @@ public class LoginController {
             m.addAttribute(LOGGEDINUSERNAME_STRING, username);
             return REDIRECT_SICHTUNG_MEINE_STRING;
         } else {
-            // m.addAttribute("hinweis", hinweis);
             m.addAttribute("username", username);
             m.addAttribute("pwMitLaenge", pwMitLaenge);
             m.addAttribute(LOGGEDINUSERNAME_STRING, "");

@@ -55,7 +55,6 @@ public class FotoServiceImpl implements FotoService {
     @Override
     @Transactional
     public void fotoKommentieren(long id, String autor, String kommentar) throws NoSuchElementException {
-        // TODO Irgendwie hässlich. Bitte morgen aufräumen. Ist jetzt zu spät geworden.
         Optional<Foto> fotoopt = fotoRepository.findById(id);
         var foto = fotoopt.orElseThrow();
         var k = new Kommentar();
@@ -69,38 +68,25 @@ public class FotoServiceImpl implements FotoService {
     @Override
     @Transactional
     public List<Kommentar> alleKommentareFuerFoto(long fotoid) throws NoSuchElementException {
-        // TODO Bitte morgen aufräumen. Ist jetzt zu spät geworden.
-
         Optional<Foto> fotoopt = fotoRepository.findById(fotoid);
         var foto = fotoopt.orElseThrow();
-
-        List<Kommentar> kommentare = foto.getKommentare();
-
-        return kommentare;
+        return foto.getKommentare();
     }
 
     @Override
     @Transactional
     public void fotoKommentarLoeschen(long fotoid, long kid) throws NoSuchElementException {
-        // TODO Hässlicher Code, vorallem unten mit der for-Schleife und dem throw new. Bitte aufräumen
-
         Optional<Foto> fotoopt = fotoRepository.findById(fotoid);
-        Foto foto = fotoopt.orElseThrow();
-        // Kommentar kommentar = foto.getKommentare().get(kid);
-
+        var foto = fotoopt.orElseThrow();
         List<Kommentar> kommentare = foto.getKommentare();
-        // kommentare.remove(kommentar);
 
-        
         for(Kommentar kommentar : kommentare) {
-            // if(kommentar.getId() == kid) {
             if(kommentar.getId() == kid ) {
                 kommentare.remove(kommentar);
                 return;
             }
         }
         throw new NoSuchElementException();
-
     }
     
 }

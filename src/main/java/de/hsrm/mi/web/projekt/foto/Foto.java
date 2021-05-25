@@ -12,21 +12,17 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 public class Foto {
-    
     // private static final double Null = 0;
-    
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
 
     @Version
@@ -34,10 +30,10 @@ public class Foto {
 
     @NotBlank
     private String mimetype = "";
-    @Size(min=3)
+    @Size(min = 3)
     private String dateiname = "";
     private String ort = "";
-    // @Future  // auskommentiert, weil sonst Test fehlschlägt
+    // @Future // auskommentiert, weil sonst Test fehlschlägt
     private LocalDateTime zeitstempel = LocalDateTime.MIN;
 
     private double geolaenge = 0f;
@@ -45,9 +41,8 @@ public class Foto {
 
     @Lob
     @JsonIgnore
-    // @JsonIdentityReference(alwaysAsId = true)
     private byte[] fotodaten;
-    
+
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JsonIdentityReference(alwaysAsId = true)
     private List<Kommentar> kommentare = new ArrayList<>();
@@ -152,6 +147,4 @@ public class Foto {
         return true;
     }
 
-
-    
 }

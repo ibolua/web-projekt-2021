@@ -92,7 +92,8 @@ public class SichtungController {
 
     @PostMapping("/meine/neu")
     public String sichtungMeineNeuPost(@Valid @ModelAttribute("meinesichtungform") Sichtung sichtung,
-            BindingResult neueSichtungError, Model m, @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe) {
+            BindingResult neueSichtungError, Model m,
+            @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe) {
 
         if (neueSichtungError.hasErrors()) {
             return "sichtung/meine/bearbeiten";
@@ -106,7 +107,7 @@ public class SichtungController {
     public String editGet(@ModelAttribute("meinesichtungform") Sichtung sichtung, Model m,
             @ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe, @PathVariable int index) {
 
-        Sichtung aktSichtung = dieSichtungenListe.get(index);
+        var aktSichtung = dieSichtungenListe.get(index);
         m.addAttribute("meinesichtungform", aktSichtung);
         logger.warn("/mein/index aktuelleSichtung: {}", aktSichtung.getName());
         dieSichtungenListe.remove(index);
@@ -114,7 +115,8 @@ public class SichtungController {
     }
 
     @GetMapping("/meine/{index}/del")
-    public String deleteGet(@ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe, @PathVariable int index) {
+    public String deleteGet(@ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe,
+            @PathVariable int index) {
         dieSichtungenListe.remove(index);
         return "redirect:/sichtung/meine";
     }
