@@ -20,7 +20,7 @@ public class Spruch {
     private String name = "";
     @NotBlank
     private String text = "";
-    private int anspruch = 0;
+    private int gewicht = 0;
 
     public String getName() {
         return name;
@@ -38,12 +38,12 @@ public class Spruch {
         this.text = text;
     }
 
-    public int getAnspruch() {
-        return anspruch;
+    public int getGewicht() {
+        return gewicht;
     }
 
-    public void setAnspruch(int anspruch) {
-        this.anspruch = anspruch;
+    public void setGewicht(int gewicht) {
+        this.gewicht = gewicht;
     }
 
 }
