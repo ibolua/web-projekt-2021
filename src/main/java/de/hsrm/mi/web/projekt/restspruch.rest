@@ -15,8 +15,12 @@ POST http://localhost:2222/rest/spruches
 {
     "name": "Wolfgang",
     "text": "Wulfgang Spruch",
-    "anspruch": 42
+    "gewicht": 42
 }
+
+###
+
+DELETE http://localhost:2222/rest/spruches/1260
 
 ###
 
@@ -29,7 +33,75 @@ PUT http://localhost:2222/rest/spruches/1
 {
     "name": "Peter",
     "text": "Peter Spruch",
-    "anspruch": 17
+    "gewicht": 17
 }
 
+###
+
+POST http://localhost:2222/rest/spruches
+
+{
+    "name": "Name1",
+    "text": "Spruch1",
+    "gewicht": 89
+}
+
+###
+
+POST http://localhost:2222/rest/spruches
+
+{
+    "name": "Name2",
+    "text": "Spruch2",
+    "gewicht": 42
+}
+
+###
+
+POST http://localhost:2222/rest/spruches
+
+{
+    "name": "Name3",
+    "text": "Spruch3",
+    "gewicht": 17
+}
+
+###
+
+POST http://localhost:2222/rest/spruches
+
+{
+    "name": "Name4",
+    "text": "Spruch4",
+    "gewicht": 11
+}
+
+###
+
+POST http://localhost:2222/rest/spruches
+
+{
+    "name": "Name5",
+    "text": "Spruch5",
+    "gewicht": 31
+}
+
+###
+
+GET http://localhost:2222/rest/spruches?sort=gewicht
+
+###
+
+GET http://localhost:2222/rest/spruches?sort=name,desc
+
+###
+
+GET http://localhost:2222/rest/spruches?size=2&sort=gewicht
+
+###
+GET http://localhost:2222/rest/spruches?page=0&size=2&sort=gewicht,asc"
+###
+GET http://localhost:2222/rest/spruches?page=1&size=2&sort=gewicht,asc"
+###
+GET http://localhost:2222/rest/spruches?page=2&size=2&sort=gewicht,asc"
 ###
