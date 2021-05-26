@@ -32,7 +32,7 @@ PUT http://localhost:2222/rest/spruches/1
 
 {
     "name": "Peter",
-    "text": "Peter Spruch",
+    "text": "Peter und wulfGANG",
     "gewicht": 17
 }
 
@@ -104,4 +104,35 @@ GET http://localhost:2222/rest/spruches?page=0&size=2&sort=gewicht,asc"
 GET http://localhost:2222/rest/spruches?page=1&size=2&sort=gewicht,asc"
 ###
 GET http://localhost:2222/rest/spruches?page=2&size=2&sort=gewicht,asc"
+
+
+###
+GET http://localhost:2222/rest/spruches/search/findByTextContainingIgnoreCase?suche=wulfgang
+
+###
+
+
+
+
+
+
+GET http://localhost:2222/rest/tags
+###
+POST http://localhost:2222/rest/tags
+
+{
+    "name": "Hans"
+}
+###
+POST http://localhost:2222/rest/tags
+
+{
+    "name": "Peter"
+}
+###
+POST http://localhost:2222/rest/tags
+
+{
+    "name": "Adam"
+}
 ###
