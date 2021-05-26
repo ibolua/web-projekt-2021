@@ -1,8 +1,13 @@
 package de.hsrm.mi.web.projekt.spruch;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 
@@ -21,6 +26,17 @@ public class Spruch {
     @NotBlank
     private String text = "";
     private int gewicht = 0;
+
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Tag> tags = new ArrayList<>();
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
     public String getName() {
         return name;

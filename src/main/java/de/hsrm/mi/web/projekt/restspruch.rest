@@ -28,6 +28,9 @@ GET http://localhost:2222/rest/spruches/1
 
 ###
 
+
+
+# Blatt 7 Aufgabe 4
 PUT http://localhost:2222/rest/spruches/1
 
 {
@@ -88,6 +91,8 @@ POST http://localhost:2222/rest/spruches
 
 ###
 
+
+
 GET http://localhost:2222/rest/spruches?sort=gewicht
 
 ###
@@ -95,6 +100,8 @@ GET http://localhost:2222/rest/spruches?sort=gewicht
 GET http://localhost:2222/rest/spruches?sort=name,desc
 
 ###
+
+
 
 GET http://localhost:2222/rest/spruches?size=2&sort=gewicht
 
@@ -106,6 +113,8 @@ GET http://localhost:2222/rest/spruches?page=1&size=2&sort=gewicht,asc"
 GET http://localhost:2222/rest/spruches?page=2&size=2&sort=gewicht,asc"
 
 
+
+# Blatt 7 Aufgabe 5
 ###
 GET http://localhost:2222/rest/spruches/search/findByTextContainingIgnoreCase?suche=wulfgang
 
@@ -115,7 +124,7 @@ GET http://localhost:2222/rest/spruches/search/findByTextContainingIgnoreCase?su
 
 
 
-
+# Blatt 7 Aufgabe 6
 GET http://localhost:2222/rest/tags
 ###
 POST http://localhost:2222/rest/tags
@@ -135,4 +144,52 @@ POST http://localhost:2222/rest/tags
 {
     "name": "Adam"
 }
+###
+
+
+
+# Blatt 7 Aufgabe 7
+
+POST http://localhost:2222/rest/spruches
+
+{
+    "name": "Name der Beziehung",
+    "text": "Text für Beziehung",
+    "gewicht": 1515
+}
+###
+GET http://localhost:2222/rest/spruches
+###
+GET http://localhost:2222/rest/spruches/1409
+###
+GET http://localhost:2222/rest/tags
+###
+POST http://localhost:2222/rest/tags
+
+{
+    "name": "Ein Tag oder ein Tag?"
+}
+###
+GET http://localhost:2222/rest/tags/1412
+###
+GET http://localhost:2222/rest/spruches/1409
+###
+GET http://localhost:2222/rest/spruches/1409/tags
+###
+POST http://localhost:2222/rest/spruches/1409/tags
+Content-Type: text/uri-list
+
+http://localhost:2222/rest/tags/1412
+###
+
+DELETE http://localhost:2222/rest/spruches/1409/tags
+Content-Type: text/uri-list
+
+http://localhost:2222/rest/tags/1412
+###
+
+DELETE http://localhost:2222/rest/tags/1412
+###
+
+DELETE http://localhost:2222/rest/spruches/1409/tags/1412
 ###
