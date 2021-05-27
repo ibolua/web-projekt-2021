@@ -193,3 +193,6 @@ DELETE http://localhost:2222/rest/tags/1412
 
 DELETE http://localhost:2222/rest/spruches/1409/tags/1412
 ###
+
+
+POST http://localhost:2222/foto/178/kommentar?kommentar=EinKommentar22
