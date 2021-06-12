@@ -6,14 +6,14 @@
     </button>
     <!-- Eingabefeld für inkrementelle Suche -->
     <section class="section">
-      <input type="text" class="input" placeholder="Suche" />
+      <input type="text" v-model="suchfeld" class="input" placeholder="Suche" />
     </section>
     <section class="section">
       <div class="columns is-multiline">
         <!-- Hier alle Bilder mit Hilfe der FotoGalerieBild-Komponente anzeigen -->
         <!-- flexibel natürlich - nicht die fünf Beispielbilder hardcoden! -->
         
-        <FotoGalerieBild v-for="(ele, i) in fotos" v-bind:key="i" :foto="ele" />
+        <FotoGalerieBild  :foto="ele" v-for="(ele, i) in fotoitems" v-bind:key="i"/>
    
 
         
@@ -37,12 +37,16 @@ export default defineComponent({
   },
 
   setup() {
-    var fotos: Foto[] = reactive([]);
+    // var fotos: Foto[] = reactive([]);
+    const fotos: Ref<Foto[]> = ref([]);
     let index = 0;
+
+    const suchfeld = ref("");
+    // const items: Ref<Foto[]> = ref([]);
 
     function geklickt() {
       if(index < fotoliste.length) {
-        fotos.push(fotoliste[index]);
+        fotos.value.push(fotoliste[index]);
         index += 1;
         console.log("ich war hier");
       } else {
@@ -50,8 +54,36 @@ export default defineComponent({
       }
     }
 
+    const fotoitems = computed(() => {
+      const n: number = suchfeld.value.length;
+      if (suchfeld.value.length < 3) {
+        return fotos.value;
+      } else {
+        // console.log(fotos.value[0].ort.toLowerCase());
+        // console.log(suchfeld.value.toLowerCase());
+
+        // console.log(fotos.value[0].ort.toLowerCase().includes(suchfeld.value.toLowerCase()));
+        // return fotos.value.filter((e: { ort: string; }) => 
+        //   e.ort.toLowerCase().includes(suchfeld.value.toLowerCase())
+        // );
+
+        var tmp = []
+        for (let f of fotos.value) {
+          console.log(f.ort);
+          if(f.ort.toLowerCase().includes(suchfeld.value.toLowerCase())) {
+            tmp.push(f);
+          }
+        }
+        return tmp;
+
+
+      }
+    })
+
+
+
     return {
-      fotos, geklickt, index
+      geklickt, index, suchfeld, fotoitems
     }
   }
 
