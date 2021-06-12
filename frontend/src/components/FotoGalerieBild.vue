@@ -3,6 +3,7 @@
     <div class="card-header">
       <p class="card-header-title is-centered">
         <!-- Dateinamen ausgeben -->
+        {{rFoto.dateiname}}
       </p>
       <!-- Lösch-Button -->
       <button class="button card-header-icon has-background-grey-light">
@@ -18,8 +19,10 @@
         <foto-star-rating :maxsterne="5" />
       </div>
       <!-- Ort -->
+      {{rFoto.ort}}
       <div class="content">Irgendwo</div>
       <!-- Zeitstempel -->
+      {{rFoto.zeitstempel}}
       <div class="has-text-grey">Irgendwann</div>
     </div>
   </div>
@@ -27,18 +30,25 @@
 
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, PropType, reactive, ref } from "vue";
 import FotoStarRating from "./FotoStarRating.vue";
 import { Foto } from "@/services/Foto";
 
 export default defineComponent({
   components: { FotoStarRating },
   name: "FotoGalerieBild",
+  
+  props: {
+    foto: {type: Object, required: true}
+  },
+  
   setup(props, context) {
-
+    const rFoto = reactive(props.foto)
     
     return {
-      url: require("@/assets/thumbnails/DerTupel.png")
+      // url: require("@/assets/thumbnails/DerTupel.png")
+      url: require("@/assets/thumbnails/" + props.foto.dateiname),
+      rFoto
     };
   }
 });
