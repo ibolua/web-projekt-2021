@@ -12,12 +12,7 @@
       <div class="columns is-multiline">
         <!-- Hier alle Bilder mit Hilfe der FotoGalerieBild-Komponente anzeigen -->
         <!-- flexibel natürlich - nicht die fünf Beispielbilder hardcoden! -->
-        
-        <FotoGalerieBild  :foto="ele" v-for="(ele, i) in fotoitems" v-bind:key="i"/>
-   
-
-        
-
+        <FotoGalerieBild @delete-foto="deleteFoto" :foto="ele" v-for="(ele, i) in fotoitems" v-bind:key="i"/>
       </div>
     </section>
   </div>
@@ -81,9 +76,18 @@ export default defineComponent({
     })
 
 
+    function deleteFoto(id: number): void {
+      console.log("deleteFotoo")
+      fotos.value = fotoitems.value.filter(ele => ele.id !== id);
+
+      // Irgendwie funktioniert das nicht so ganz.
+      // Kann danach nicht nochmal 5 Bilder hinzufügen
+      index -= 1;
+    }
+
 
     return {
-      geklickt, index, suchfeld, fotoitems
+      geklickt, index, suchfeld, fotoitems, deleteFoto
     }
   }
 

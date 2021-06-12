@@ -6,7 +6,7 @@
         {{rFoto.dateiname}}
       </p>
       <!-- Lösch-Button -->
-      <button class="button card-header-icon has-background-grey-light">
+      <button @click="delclicked()" class="button card-header-icon has-background-grey-light">
         <i class="fa fa-times" />
       </button>
     </div>
@@ -45,10 +45,15 @@ export default defineComponent({
   setup(props, context) {
     const rFoto = reactive(props.foto)
     
+    function delclicked(): void {
+      console.log("Bei delclicked")
+      context.emit("delete-foto", props.foto.id)
+    }
+
     return {
       // url: require("@/assets/thumbnails/DerTupel.png")
       url: require("@/assets/thumbnails/" + props.foto.dateiname),
-      rFoto
+      rFoto, delclicked
     };
   }
 });
