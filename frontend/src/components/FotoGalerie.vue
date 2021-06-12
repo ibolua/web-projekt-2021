@@ -13,7 +13,7 @@
         <!-- Hier alle Bilder mit Hilfe der FotoGalerieBild-Komponente anzeigen -->
         <!-- flexibel natürlich - nicht die fünf Beispielbilder hardcoden! -->
         
-        <FotoGalerieBild v-for="i in fotoslen" v-bind:key="i" />
+        <FotoGalerieBild v-for="(ele, i) in fotos" v-bind:key="i" :foto="ele" />
    
 
         
@@ -38,15 +38,6 @@ export default defineComponent({
 
   setup() {
     var fotos: Foto[] = reactive([]);
-    // fotosArray = fotoliste;
-    // const fotos = reactive(fotosArray);
-    // const fotoslen = computed( () => fotos.length);
-
-
-    // fotos = fotoliste;
-
-    // const fotoslen = computed( () => 7);
-    const fotoslen = computed( () => fotos.length);
     let index = 0;
 
     function geklickt() {
@@ -60,7 +51,7 @@ export default defineComponent({
     }
 
     return {
-      fotos, fotoslen, geklickt, index
+      fotos, geklickt, index
     }
   }
 
