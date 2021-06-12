@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- Button zum Hinzufügen des nächsten Bildes -->
-    <button class="button">
+    <button @click="geklickt()" class="button">
       <i class="fas fa-camera" />
     </button>
     <!-- Eingabefeld für inkrementelle Suche -->
@@ -13,7 +13,7 @@
         <!-- Hier alle Bilder mit Hilfe der FotoGalerieBild-Komponente anzeigen -->
         <!-- flexibel natürlich - nicht die fünf Beispielbilder hardcoden! -->
         
-        <!-- <FotoGalerieBild v-for="i in fotoslen" v-bind:key="i" /> -->
+        <FotoGalerieBild v-for="i in fotoslen" v-bind:key="i" />
    
 
         
@@ -32,21 +32,37 @@ import { fotoliste } from "@/services/FotoListe";
 export default defineComponent({
   name: "FotoGalerie",
   
-  // components: {
-  //   FotoGalerieBild
-  // },
+  components: {
+    FotoGalerieBild
+  },
 
-  // setup() {
-  //   var fotosArray: Foto[] = [];
-  //   fotosArray = fotoliste;
-  //   const fotos = reactive(fotosArray);
-  //   // const fotoslen = computed( () => fotos.length);
-  //   const fotoslen = computed( () => 7);
+  setup() {
+    var fotos: Foto[] = reactive([]);
+    // fotosArray = fotoliste;
+    // const fotos = reactive(fotosArray);
+    // const fotoslen = computed( () => fotos.length);
 
-  //   return {
-  //     fotos, fotoslen
-  //   }
-  // }
+
+    // fotos = fotoliste;
+
+    // const fotoslen = computed( () => 7);
+    const fotoslen = computed( () => fotos.length);
+    let index = 0;
+
+    function geklickt() {
+      if(index < fotoliste.length) {
+        fotos.push(fotoliste[index]);
+        index += 1;
+        console.log("ich war hier");
+      } else {
+        alert("Keine Fotos mehr");
+      }
+    }
+
+    return {
+      fotos, fotoslen, geklickt, index
+    }
+  }
 
 
   
