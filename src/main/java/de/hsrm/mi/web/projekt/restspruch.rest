@@ -160,7 +160,7 @@ POST http://localhost:2222/rest/spruches
 ###
 GET http://localhost:2222/rest/spruches
 ###
-GET http://localhost:2222/rest/spruches/1409
+GET http://localhost:2222/rest/spruches/1904
 ###
 GET http://localhost:2222/rest/tags
 ###
@@ -170,28 +170,33 @@ POST http://localhost:2222/rest/tags
     "name": "Ein Tag oder ein Tag?"
 }
 ###
-GET http://localhost:2222/rest/tags/1412
+GET http://localhost:2222/rest/tags/1905
 ###
-GET http://localhost:2222/rest/spruches/1409
+GET http://localhost:2222/rest/spruches/1904
 ###
-GET http://localhost:2222/rest/spruches/1409/tags
+
+
+
+GET http://localhost:2222/rest/spruches/1904/tags
 ###
-POST http://localhost:2222/rest/spruches/1409/tags
+POST http://localhost:2222/rest/spruches/1904/tags
 Content-Type: text/uri-list
 
-http://localhost:2222/rest/tags/1412
+http://localhost:2222/rest/tags/1908
 ###
 
-DELETE http://localhost:2222/rest/spruches/1409/tags
+DELETE http://localhost:2222/rest/spruches/1904/tags
 Content-Type: text/uri-list
 
-http://localhost:2222/rest/tags/1412
+http://localhost:2222/rest/tags/1907
 ###
 
-DELETE http://localhost:2222/rest/tags/1412
+DELETE http://localhost:2222/rest/tags/1907
 ###
 
-DELETE http://localhost:2222/rest/spruches/1409/tags/1412
+### SO HABENS ANDERE AUCH ANSCHEINEND 
+### So gehts aber nicht, weil Tag-Objekt auch gelöscht wird
+DELETE http://localhost:2222/rest/spruches/1904/tags/1907
 ###
 
 
