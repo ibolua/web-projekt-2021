@@ -46,8 +46,7 @@ export default defineComponent({
     const rFoto = reactive(props.foto)
     
     function delclicked(): void {
-      console.log("Bei delclicked")
-      context.emit("delete-foto", props.foto.id)
+      context.emit("entferne-foto", props.foto.id);
     }
 
     return {
