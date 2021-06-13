@@ -12,7 +12,7 @@
       <div class="columns is-multiline">
         <!-- Hier alle Bilder mit Hilfe der FotoGalerieBild-Komponente anzeigen -->
         <!-- flexibel natürlich - nicht die fünf Beispielbilder hardcoden! -->
-        <FotoGalerieBild @entferne-foto="deleteFoto" :foto="ele" v-for="(ele, i) in fotoitems" v-bind:key="i"/>
+        <FotoGalerieBild @entferne-foto="deleteFoto" :foto="ele" v-for="ele, in fotoitems" v-bind:key="ele.id"/>
       </div>
     </section>
   </div>
@@ -62,6 +62,9 @@ export default defineComponent({
 
       // Irgendwie funktioniert das nicht so ganz.
       // Kann danach nicht nochmal 5 Bilder hinzufügen
+      
+      // weil hier ID gelöscht wird. Also eventuell auch mittendrin im Array.
+      // Und oben wird einfach nacheinander hinzugefügt, ohne ID Berücksichtigung.
       index -= 1;
     }
 
