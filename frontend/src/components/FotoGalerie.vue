@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div class="notification is-danger" v-if="errormessage"></div>
     <!-- Button zum Hinzufügen des nächsten Bildes -->
     <button @click="geklickt()" class="button">
       <i class="fas fa-camera" />
@@ -15,6 +16,7 @@
         <FotoGalerieBild @entferne-foto="deleteFoto" :foto="ele" v-for="ele, in fotoitems" v-bind:key="ele.id"/>
       </div>
     </section>
+    <p>Insgesamt {{anzahlFotos}} Bilder</p>
   </div>
 </template>
 
@@ -23,6 +25,7 @@ import { computed, defineComponent, reactive, ref, Ref } from "vue";
 import FotoGalerieBild from "./FotoGalerieBild.vue";
 import { Foto } from "@/services/Foto";
 import { fotoliste } from "@/services/FotoListe";
+import { useFotoStore } from "@/services/FotoStore";
 
 export default defineComponent({
   name: "FotoGalerie",
@@ -35,6 +38,10 @@ export default defineComponent({
     const suchfeld = ref("");
     const fotos: Ref<Foto[]> = ref([]);
     let index = 0;
+    const { errormessage, fotostate } = useFotoStore();
+    // const fotostate = useFotoStore();
+
+    const anzahlFotos = computed(() => fotostate.length)
 
     function geklickt() {
       if(index < fotoliste.length) {
@@ -67,10 +74,12 @@ export default defineComponent({
       // Und oben wird einfach nacheinander hinzugefügt, ohne ID Berücksichtigung.
       index -= 1;
     }
+  
+
 
 
     return {
-      geklickt, suchfeld, fotoitems, deleteFoto
+      geklickt, suchfeld, fotoitems, deleteFoto, errormessage, fotostate, anzahlFotos
     }
   }
 
