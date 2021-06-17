@@ -7,8 +7,25 @@ const fotostate = reactive({
 })
 
 export function useFotoStore() {
+    async function updateFotos(): Promise<void> {
+        try {
+            const url = "/api/foto"
+            const response = await fetch(url)
+            const jsondata: Array<Foto> = await response.json()
+
+            for(const foto of jsondata) {
+                fotostate.fotos.push(foto);
+            }
+
+            fotostate.fotos = jsondata;
+    
+        } catch(reason) {
+            fotostate.errormessage = "Fehler: ${reason}";
+        }
+    }
     return {
         fotostate: readonly(fotostate.fotos),
-        errormessage: fotostate.errormessage
+        errormessage: fotostate.errormessage,
+        updateFotos
     }
 }

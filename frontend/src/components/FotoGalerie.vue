@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, Ref } from "vue";
+import { computed, defineComponent, reactive, ref, Ref, onMounted } from "vue";
 import FotoGalerieBild from "./FotoGalerieBild.vue";
 import { Foto } from "@/services/Foto";
 import { fotoliste } from "@/services/FotoListe";
@@ -38,7 +38,7 @@ export default defineComponent({
     const suchfeld = ref("");
     const fotos: Ref<Foto[]> = ref([]);
     let index = 0;
-    const { errormessage, fotostate } = useFotoStore();
+    const { errormessage, fotostate, updateFotos } = useFotoStore();
     // const fotostate = useFotoStore();
 
     const anzahlFotos = computed(() => fotostate.length)
@@ -74,7 +74,10 @@ export default defineComponent({
       // Und oben wird einfach nacheinander hinzugefügt, ohne ID Berücksichtigung.
       index -= 1;
     }
-  
+    
+    onMounted(async () => {
+      await updateFotos();
+    })
 
 
 
