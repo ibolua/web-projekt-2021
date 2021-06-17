@@ -13,13 +13,11 @@ export function useFotoStore() {
             const response = await fetch(url)
             const jsondata: Array<Foto> = await response.json()
 
-            for(const foto of jsondata) {
+            for (const foto of jsondata) {
                 fotostate.fotos.push(foto);
             }
 
-            fotostate.fotos = jsondata;
-    
-        } catch(reason) {
+        } catch (reason) {
             fotostate.errormessage = "Fehler: ${reason}";
         }
     }
