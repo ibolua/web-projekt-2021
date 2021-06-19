@@ -38,7 +38,7 @@ export default defineComponent({
     const suchfeld = ref("");
     // const fotos: Ref<Foto[]> = ref([]);
     let index = 0;
-    const { fotostate, updateFotos } = useFotoStore();
+    const { fotostate, updateFotos, deleteFoto} = useFotoStore();
     const errormessage = fotostate.errormessage;
     // const fotostate = useFotoStore();
     // const fotos = fotostate.fotos;
@@ -67,16 +67,16 @@ export default defineComponent({
     })
 
 
-    function deleteFoto(id: number): void {
-      fotos.value = fotos.value.filter(ele => ele.id !== id);
+    // function deleteFoto(id: number): void {
+    //   fotos.value = fotos.value.filter(ele => ele.id !== id);
 
-      // Irgendwie funktioniert das nicht so ganz.
-      // Kann danach nicht nochmal 5 Bilder hinzufügen
+    //   // Irgendwie funktioniert das nicht so ganz.
+    //   // Kann danach nicht nochmal 5 Bilder hinzufügen
       
-      // weil hier ID gelöscht wird. Also eventuell auch mittendrin im Array.
-      // Und oben wird einfach nacheinander hinzugefügt, ohne ID Berücksichtigung.
-      index -= 1;
-    }
+    //   // weil hier ID gelöscht wird. Also eventuell auch mittendrin im Array.
+    //   // Und oben wird einfach nacheinander hinzugefügt, ohne ID Berücksichtigung.
+    //   index -= 1;
+    // }
     
     onMounted(async () => {
       await updateFotos();

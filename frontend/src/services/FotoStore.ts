@@ -21,8 +21,19 @@ export function useFotoStore() {
             fotostate.errormessage = "Fehler: ${reason}";
         }
     }
+
+    async function deleteFoto(id: number): Promise<void> {
+        try {
+            const url = "api/foto/" + id;
+            await fetch(url, {method: 'DELETE'});
+        } catch (reason) {
+            fotostate.errormessage = "Fehler: ${reason}";
+        }
+    }
+
     return {
         fotostate: readonly(fotostate),
-        updateFotos
+        updateFotos,
+        deleteFoto
     }
 }
