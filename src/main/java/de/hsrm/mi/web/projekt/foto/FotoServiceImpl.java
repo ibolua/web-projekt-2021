@@ -9,8 +9,10 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import de.hsrm.mi.web.projekt.messaging.FotoMessage;
 import de.hsrm.mi.web.projekt.utils.FotoBearbeitungService;
 
 @Service
@@ -25,11 +27,17 @@ public class FotoServiceImpl implements FotoService {
     @Autowired
     private AdressService adressservice;
 
+    @Autowired
+    private SimpMessagingTemplate broker;
+
     @Override
     public Foto fotoAbspeichern(Foto foto) {
         fbservice.aktualisiereMetadaten(foto);
         fbservice.orientiereFoto(foto);
         
+        
+        broker.convertAndSend("/topic/foto", FotoMessage.FOTO_GESPEICHERT);
+
         Optional<String> ortString = adressservice.findeAdresse(foto.getGeobreite(), foto.getGeolaenge());
         if(ortString.isPresent()){
             foto.setOrt(ortString.get());
@@ -50,6 +58,7 @@ public class FotoServiceImpl implements FotoService {
     @Override
     public void loescheFoto(Long id) {
         fotoRepository.deleteById(id);
+        broker.convertAndSend("/topic/foto", FotoMessage.FOTO_GELOESCHT);
     }
 
     @Override
