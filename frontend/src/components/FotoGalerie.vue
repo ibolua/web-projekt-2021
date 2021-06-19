@@ -36,20 +36,23 @@ export default defineComponent({
 
   setup() {
     const suchfeld = ref("");
-    const fotos: Ref<Foto[]> = ref([]);
+    // const fotos: Ref<Foto[]> = ref([]);
     let index = 0;
-    const { errormessage, fotostate, updateFotos } = useFotoStore();
+    const { fotostate, updateFotos } = useFotoStore();
+    const errormessage = fotostate.errormessage;
     // const fotostate = useFotoStore();
+    // const fotos = fotostate.fotos;
+    const fotos = ref(fotostate.fotos);
 
-    const anzahlFotos = computed(() => fotostate.length)
+    const anzahlFotos = computed(() => fotos.value.length)
 
     function geklickt() {
-      if(index < fotoliste.length) {
-        fotos.value.push(fotoliste[index]);
-        index += 1;
-      } else {
-        alert("Keine Fotos mehr");
-      }
+      // if(index < fotoliste.length) {
+        // fotos.value.push(fotoliste[index]);
+        // index += 1;
+      // } else {
+        // alert("Keine Fotos mehr");
+      // }
     }
 
     const fotoitems = computed(() => {
@@ -82,7 +85,7 @@ export default defineComponent({
 
 
     return {
-      geklickt, suchfeld, fotoitems, deleteFoto, errormessage, fotostate, anzahlFotos
+      geklickt, suchfeld, fotoitems, deleteFoto, errormessage, anzahlFotos
     }
   }
 

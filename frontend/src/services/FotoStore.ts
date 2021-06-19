@@ -22,8 +22,7 @@ export function useFotoStore() {
         }
     }
     return {
-        fotostate: readonly(fotostate.fotos),
-        errormessage: fotostate.errormessage,
+        fotostate: readonly(fotostate),
         updateFotos
     }
 }

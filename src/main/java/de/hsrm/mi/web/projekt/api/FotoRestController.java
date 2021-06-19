@@ -1,6 +1,7 @@
 package de.hsrm.mi.web.projekt.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,11 @@ public class FotoRestController {
     @GetMapping("")
     public List<Foto> getApiFoto() {
         return fotoservice.alleFotosNachZeitstempelSortiert();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Foto> getApiFotoNachId(@PathVariable long id) {
+        return fotoservice.fotoAbfragenNachId(id);
     }
 
     @DeleteMapping("/{id}")
