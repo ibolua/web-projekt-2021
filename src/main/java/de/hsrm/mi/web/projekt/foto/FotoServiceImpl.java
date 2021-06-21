@@ -35,14 +35,15 @@ public class FotoServiceImpl implements FotoService {
         fbservice.aktualisiereMetadaten(foto);
         fbservice.orientiereFoto(foto);
         
-        
-        broker.convertAndSend("/topic/foto", FotoMessage.FOTO_GESPEICHERT);
-
         Optional<String> ortString = adressservice.findeAdresse(foto.getGeobreite(), foto.getGeolaenge());
         if(ortString.isPresent()){
             foto.setOrt(ortString.get());
         }
-        return fotoRepository.save(foto);
+
+        var gespeichertesFoto = fotoRepository.save(foto);
+        broker.convertAndSend("/topic/foto", new FotoMessage(FotoMessage.FOTO_GESPEICHERT, foto.getId()));
+        // return fotoRepository.save(foto);
+        return gespeichertesFoto;
     }
 
     @Override
@@ -58,7 +59,8 @@ public class FotoServiceImpl implements FotoService {
     @Override
     public void loescheFoto(Long id) {
         fotoRepository.deleteById(id);
-        broker.convertAndSend("/topic/foto", FotoMessage.FOTO_GELOESCHT);
+        // broker.convertAndSend("/topic/foto", FotoMessage.FOTO_GELOESCHT);
+        broker.convertAndSend("/topic/foto", new FotoMessage(FotoMessage.FOTO_GELOESCHT, id));
     }
 
     @Override

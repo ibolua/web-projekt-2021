@@ -40,3 +40,9 @@ export interface Foto {
     geobreite: number;
     kommentare: number[];
 }
+
+
+export interface FotoMessage {
+  operation: string;
+  id: number;
+}
