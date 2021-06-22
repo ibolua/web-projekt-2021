@@ -22,19 +22,25 @@ stompclient.onConnect = (frame) => {
         console.log("message.body: " + message.body);
         const o: FotoMessage = JSON.parse(message.body);
 
-        if (["fotoGespeichert", "fotoGeloescht"].includes(o.operation)) {
-            useFotoStore().updateFotos();
+        if (o.operation === "fotoGespeichert") {
+            useFotoStore().getFoto(o.id);
         }
+        if (o.operation === "fotoGeloescht") {
+            // useFotoStore().deleteFoto(o.id);
+            console.log("bei Foto gelöscht");
+            console.log(fotostate.fotos)
 
-        // if (o.operation === "fotoGespeichert") {
-        //     // useFotoStore().getFoto(o.id);
-        //     useFotoStore().getFoto(o.id);
-        // }
-        // if (o.operation === "fotoGeloescht") {
-        //     useFotoStore().deleteFoto(o.id);
-        // }
+            const index = fotostate.fotos.map(x => {
+                return x.id;
+            }).indexOf(o.id);
 
-
+            // splice() method
+            // https://www.w3schools.com/js/js_array_methods.asp
+            // The first parameter (index) defines the position where new elements should be added (spliced in).
+            // The second parameter (1) defines how many elements should be removed
+            // Kurz gesagt: Löscht ein(1) Element ab der Stelle von "index"
+            fotostate.fotos.splice(index, 1);
+        }
 
     });
 };
@@ -87,14 +93,14 @@ export function useFotoStore() {
         }
     }
 
-    async function getFoto(id: number): Promise < void> {
+    async function getFoto(id: number): Promise<void> {
         try {
             const url = "api/foto/" + id;
-            const response = await fetch(url, {method: 'GET'});
+            const response = await fetch(url, { method: 'GET' });
             const jsondata: Foto = await response.json();
 
             fotostate.fotos.push(jsondata);
-        } catch(reason) {
+        } catch (reason) {
             fotostate.errormessage = "Fehler: ${reason}";
         }
     }
