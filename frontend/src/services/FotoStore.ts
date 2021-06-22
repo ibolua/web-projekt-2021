@@ -1,6 +1,6 @@
 import { reactive, readonly } from "vue";
 import { Foto, FotoMessage } from "./Foto";
-import { Client, Message } from "@stomp/stompjs";
+import { Client } from "@stomp/stompjs";
 
 const wsurl = "ws://localhost:9090/messagebroker";
 const DEST = "/topic/foto";
@@ -26,7 +26,6 @@ stompclient.onConnect = (frame) => {
             useFotoStore().getFoto(o.id);
         }
         if (o.operation === "fotoGeloescht") {
-            // useFotoStore().deleteFoto(o.id);
             console.log("bei Foto gelöscht");
             console.log(fotostate.fotos)
 

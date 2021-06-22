@@ -42,7 +42,6 @@ public class FotoServiceImpl implements FotoService {
 
         var gespeichertesFoto = fotoRepository.save(foto);
         broker.convertAndSend("/topic/foto", new FotoMessage(FotoMessage.FOTO_GESPEICHERT, foto.getId()));
-        // return fotoRepository.save(foto);
         return gespeichertesFoto;
     }
 
@@ -59,7 +58,6 @@ public class FotoServiceImpl implements FotoService {
     @Override
     public void loescheFoto(Long id) {
         fotoRepository.deleteById(id);
-        // broker.convertAndSend("/topic/foto", FotoMessage.FOTO_GELOESCHT);
         broker.convertAndSend("/topic/foto", new FotoMessage(FotoMessage.FOTO_GELOESCHT, id));
     }
 
