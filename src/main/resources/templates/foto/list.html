@@ -20,7 +20,8 @@
     <h2 th:text=#{foto.list.ueberschrift}></h2>
 
     <section class="logout-field">
-        <form action="/logoutfoto" method="GET">
+        <h2>my foto logout</h2>
+        <form th:action="@{/logout}" th:method="POST">
             <input type="submit" name="logoutbutton" th:value="#{foto.list.abmeldeButton}" class="btn btn-danger"> <br />
         </form>
     </section>

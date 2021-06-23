@@ -3,6 +3,7 @@ package de.hsrm.mi.web.projekt.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -16,8 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder authmanagerbuilder) throws Exception {
-        PasswordEncoder pwenc = passwordEncoder(); // Injection "in sich selbst" geht leider nicht
-
+        var pwenc = passwordEncoder(); // Injection "in sich selbst" geht leider nicht
 
         authmanagerbuilder.inMemoryAuthentication() // "in memory" - Benutzerdatenbank anlegen
             .withUser("friedfert")
@@ -26,7 +26,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .and()  // nächster Eintrag
             .withUser("joghurta")
             .password(pwenc.encode("geheim123"))
-            .roles("PHOTOGRAPH");
+            .roles("PHOTOGRAPH")
+        .and()
+            .withUser("ibo")
+            .password(pwenc.encode("ibo"))
+            .roles("GUCKER", "PHOTOGRAPH");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .antMatchers("/logout").permitAll()
+            .antMatchers("/**").authenticated()
+        .and()
+            .formLogin()
+            // .loginPage("/login") // falls eigenes Login-Formular
+            .defaultSuccessUrl("/foto")
+            .failureUrl("/")
+            .permitAll()
+        .and()
+            .logout()
+            .logoutUrl("/logout")   // ist auch Default
+            .logoutSuccessUrl("/")
+            .permitAll();
+
 
     }
 
