@@ -1,14 +1,14 @@
-package de.hsrm.mi.web.projekt.start;
+package de.hsrm.mi.web.projekt.auswahl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class StartController {
+public class AuswahlController {
 
-    @GetMapping("/")
+    @GetMapping("/auswahl")
     public String getStartLoginPage() {
-        return "start/start";
+        return "auswahl/auswahl";
     }
 
 }

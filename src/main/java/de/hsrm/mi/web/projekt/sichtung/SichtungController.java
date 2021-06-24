@@ -27,6 +27,7 @@ import org.springframework.web.bind.support.SessionStatus;
 public class SichtungController {
     Logger logger = LoggerFactory.getLogger(SichtungController.class);
     private static final List<String> HEADERS = Arrays.asList("Datum", "Name", "Ort", "Beschreibung");
+    private static final String REDIRECT_STRING_SICHTUNG_MEINE = "redirect:/sichtung/meine"; // Compliant
 
     // Model-Attribut 'meinesichtungen' initialisieren (Session-Scope!)
     @ModelAttribute("meinesichtungen")
@@ -77,6 +78,11 @@ public class SichtungController {
         m.addAttribute("headers", HEADERS);
     }
 
+    @GetMapping("")
+    public String sichtungGet() {
+        return REDIRECT_STRING_SICHTUNG_MEINE;
+    }
+
     @GetMapping("/meine")
     public String sichtungMeineGet(Model m, @ModelAttribute("loggedinusername") String loggedinusername) {
         m.addAttribute("willkommenUser", "Willkommen " + loggedinusername);
@@ -100,7 +106,7 @@ public class SichtungController {
         }
 
         dieSichtungenListe.add(sichtung);
-        return "redirect:/sichtung/meine";
+        return REDIRECT_STRING_SICHTUNG_MEINE;
     }
 
     @GetMapping("/meine/{index}")
@@ -118,7 +124,7 @@ public class SichtungController {
     public String deleteGet(@ModelAttribute("meinesichtungen") List<Sichtung> dieSichtungenListe,
             @PathVariable int index) {
         dieSichtungenListe.remove(index);
-        return "redirect:/sichtung/meine";
+        return REDIRECT_STRING_SICHTUNG_MEINE;
     }
 
     @GetMapping("/logout")

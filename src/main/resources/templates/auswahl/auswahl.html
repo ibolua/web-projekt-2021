@@ -19,11 +19,14 @@
             </div>
 
             <div class="login-form">
-                <form action="/login" method="GET">
-                    <button th:text=#{start.sichtungen.login} class="btn btn-primary btn-large btn-block" type="submit"></button>
+                <form action="/sichtung" method="GET">
+                    <button type="submit" th:text=#{start.sichtungen.login} class="btn btn-primary btn-large btn-block"></button>
                 </form>
-                <form action="/fotologin" method="GET">
-                    <button th:text=#{start.foto.login} class="btn btn-primary btn-large btn-block" type="submit"></button>
+                <form action="/foto" method="GET">
+                    <button type="submit" th:text=#{start.foto.login} class="btn btn-primary btn-large btn-block"></button>
+                </form>
+                <form th:action="@{/logout}" th:method="POST">
+                    <button type="submit" name="logoutbutton" th:text="#{foto.list.abmeldeButton}" class="btn btn-danger btn-large btn-block">
                 </form>
             </div>
         </div>
