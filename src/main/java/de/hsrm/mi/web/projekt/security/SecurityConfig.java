@@ -2,6 +2,7 @@ package de.hsrm.mi.web.projekt.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,8 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+            .antMatchers("/api/**", "/messagebroker", "/foto/*").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/api/foto/*").permitAll()
             .antMatchers("/logout").permitAll()
-            .antMatchers("/api").permitAll()
+            // .antMatchers(HttpMethod.GET, "/api/**").permitAll()
             // .antMatchers("/messagebroker").permitAll()
             .antMatchers("/*").authenticated()
         .and()
@@ -50,7 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .logout()
             .logoutUrl("/logout")   // ist auch Default
             .logoutSuccessUrl("/")
-            .permitAll();
+            .permitAll()
+        .and()
+        .csrf().disable();
 
 
     }
