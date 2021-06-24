@@ -27,14 +27,19 @@ public class LoginController {
         m.addAttribute(LOGGEDINUSERNAME_STRING, "");
     }
 
+    @GetMapping("")
+    public String rootGet() {
+        return LOGIN_STRING;
+    }
+
     // GET auf http://localhost:8080/login
     @GetMapping("/login")
     public String loginGet(@ModelAttribute(LOGGEDINUSERNAME_STRING) String loggedinusername) {
 
         logger.info("GET LOGIN {}", loggedinusername);
-        if (!loggedinusername.isEmpty()) {
-            return REDIRECT_SICHTUNG_MEINE_STRING;
-        }
+        // if (!loggedinusername.isEmpty()) {
+        //     return REDIRECT_SICHTUNG_MEINE_STRING;
+        // }
         return LOGIN_STRING;
     }
 

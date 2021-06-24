@@ -6,7 +6,7 @@
     <meta name="description" content="Beschreibung">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link th:href="@{/css/login/login-style.css}" rel="stylesheet" />
-    <title th:text="#{sichtung.login.title}"></title>
+    <title th:text="#{login.title}"></title>
 </head>
 
 
@@ -15,30 +15,30 @@
     <div class="login">
         <div class="login-screen">
             <div class="app-title">
-                <h1 th:text="#{sichtung.login.ueberschrift}"></h1>
+                <h1 th:text="#{login.ueberschrift}"></h1>
             </div>
 
 
             <div class="login-form">
-                <span th:text="${username != null} ? #{sichtung.login.hinweis(${username}, ${pwMitLaenge})}"
+                <span th:text="${username != null} ? #{login.hinweis(${username}, ${pwMitLaenge})}"
                     class="hinweis"></span>
 
-                <form action="/login" method="POST">
+                <form th:action="@{/login}" th:method="POST">
                     <div class="form-group">
                         <input type="text" name="username" class="form-control" id="username"
-                            th:placeholder="#{sichtung.login.benutzername}">
+                            th:placeholder="#{login.benutzername}">
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" id="password"
-                            th:placeholder="#{sichtung.login.passwort}">
+                            th:placeholder="#{login.passwort}">
                     </div>
                     <button type="submit" name="okbutton" value="OK" class="btn btn-primary btn-large btn-block"
-                        th:text="#{sichtung.login.anmeldenButton}"></button>
+                        th:text="#{login.anmeldenButton}"></button>
                 </form>
 
                 <form action="/" method="GET">
                     <button type="submit" name="cancelbutton" value="Cancel" class="cancelbutton btn btn-secondary"
-                        th:text="#{sichtung.login.zurueckButton}"></button>
+                        th:text="#{login.abbrechen}"></button>
                 </form>
 
             </div>
