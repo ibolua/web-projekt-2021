@@ -18,6 +18,7 @@
     oder <a th:href="@{?sprache=en}">Englisch</a>?
 
     <h2 th:text=#{foto.list.ueberschrift}></h2>
+    <h2 th:text=${eingeloggterbenutzer}></h2>
 
     <form action="/auswahl" method="GET">
         <button type="submit" name="zurueckButton" value="Zurueck" class="btn btn-info"

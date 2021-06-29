@@ -1,6 +1,7 @@
 package de.hsrm.mi.web.projekt.foto;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 
 
@@ -51,7 +52,9 @@ public class FotoController {
     }
 
     @GetMapping("/foto")
-    public String fotoGet(Model m) {
+    public String fotoGet(Model m, Principal prinz) {
+        String loginname = prinz.getName();
+        m.addAttribute("eingeloggterbenutzer", loginname);
         m.addAttribute("fotos", fotoservice.alleFotosNachZeitstempelSortiert());
         return FOTO_LIST_STRING;
     }
@@ -76,8 +79,17 @@ public class FotoController {
     }
 
     @GetMapping("foto/{id}/kommentar")
-    public String fotoKommentarGet(@PathVariable Long id, Model m) {
+    public String fotoKommentarGet(@PathVariable Long id, Model m, Principal prinz) {
         Optional<Foto> foto = fotoservice.fotoAbfragenNachId(id);
+        var loggedinusernameModelObject = m.getAttribute(LOGGEDINUSERNAME_STRING);
+        String loggedinusernameString;
+        
+        if(loggedinusernameModelObject != null) {
+            loggedinusernameString = loggedinusernameModelObject.toString();
+            if (!isNotBlankOrIsNotEmpty(loggedinusernameString)) {
+                m.addAttribute(LOGGEDINUSERNAME_STRING, prinz.getName());
+            }
+        }
 
         if (foto.isPresent()) {
             m.addAttribute("foto", foto.get());
@@ -87,12 +99,12 @@ public class FotoController {
     }
 
     @PostMapping("foto/{id}/kommentar")
-    public String fotoKommentarPost(@PathVariable Long id, @RequestParam String kommentar, Model m) {
+    public String fotoKommentarPost(@PathVariable Long id, @RequestParam String kommentar, Model m, Principal prinz) {
         String loggedinusernameString;
         var loggedinusernameModelObject = m.getAttribute(LOGGEDINUSERNAME_STRING);
 
         if (isNotBlankOrIsNotEmpty(kommentar) && loggedinusernameModelObject != null) {
-            loggedinusernameString = loggedinusernameModelObject.toString();
+            loggedinusernameString = prinz.getName();
             fotoservice.fotoKommentieren(id, loggedinusernameString, kommentar);
         }
         return "redirect:/foto/" + id + "/kommentar";

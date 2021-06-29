@@ -25,7 +25,7 @@
         <a target="_blank" th:href="|https://www.openstreetmap.org/#map=17/${foto.geobreite}/${foto.geolaenge}|"
             th:text="${foto.ort}">Schlumpfhausen</a><br>
 
-        <div th:if="${loggedinusername != null}">
+        <div th:if="${loggedinusername != ''}">
             <form class="kommentarfeld" th:action="@{/foto/} + ${foto.id} + @{/kommentar}" th:method="POST">
                 <label for="kommentar">
                     <p th:text="#{foto.kommentare.ihrKommentarlautet}"></p>
