@@ -28,7 +28,7 @@ public class FotoUserDetailsService implements UserDetailsService {
         // zurückgeben
         return org.springframework.security.core.userdetails.User.withUsername(username)
                 .password(passwordencoder.encode(fotouser.getPassword())) // falls in DB encoded gespeichert
-                .roles("USER") // Rolle könnte auch aus DB kommen
+                .roles(fotouser.getRole()) // Rolle könnte auch aus DB kommen
                 .build();
     }
 
