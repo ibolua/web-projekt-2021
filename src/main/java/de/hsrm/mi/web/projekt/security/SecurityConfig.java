@@ -1,5 +1,6 @@
 package de.hsrm.mi.web.projekt.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,9 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-    @Bean PasswordEncoder passwordEncoder() { // @Bean -> Encoder woanders per @Autowired abrufbar
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    FotoUserDetailsService fotoUserDetailService;
+
+    @Bean
+    PasswordEncoder passwordEncoder() { // @Bean -> Encoder woanders per @Autowired abrufbar
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -31,7 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .and()
             .withUser("ibo")
             .password(pwenc.encode("ibo"))
-            .roles("GUCKER", "PHOTOGRAPH");
+            .roles("GUCKER", "PHOTOGRAPH")
+        .and().and()
+            .userDetailsService(fotoUserDetailService)
+            .passwordEncoder(pwenc);
+
     }
 
     @Override
@@ -44,7 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers("/logout").permitAll()
             // .antMatchers(HttpMethod.GET, "/api/**").permitAll()
             // .antMatchers("/messagebroker").permitAll()
+            .antMatchers("/h2-console/**").permitAll()
             .antMatchers("/*").authenticated()
+        .and()
+            .headers().frameOptions().disable()
         .and()
             .formLogin()
             .loginPage("/login") // falls eigenes Login-Formular
