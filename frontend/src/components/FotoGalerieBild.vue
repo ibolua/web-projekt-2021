@@ -52,7 +52,7 @@ export default defineComponent({
     }
 
     return {
-      url: "/foto/" + rFoto.id,
+      url: "/api/foto/" + rFoto.id,
       rFoto,
       delclicked,
     };

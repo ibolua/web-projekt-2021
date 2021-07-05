@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +30,16 @@ public class FotoRestController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Foto> getApiFotoNachId(@PathVariable long id) {
-        return fotoservice.fotoAbfragenNachId(id);
+    public ResponseEntity<byte[]> getApiFotoId(@PathVariable long id) {
+        Optional<Foto> fotoOptional = fotoservice.fotoAbfragenNachId(id);
+
+        if (fotoOptional.isPresent()) {
+            foto = fotoOptional.get();
+            return ResponseEntity.ok()
+                        .header("Content-Type", foto.getMimetype())
+                        .body(foto.getFotodaten());
+        }
+        return null;
     }
 
     @DeleteMapping("/{id}")
