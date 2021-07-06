@@ -15,9 +15,17 @@
     </div>
     <div class="card-content has-text-centered">
       <!-- Bild anzeigen -->
-      <figure class="image is-inline-block">
-        <img :src="url" />
-      </figure>
+
+      <!-- So wollte ich es machen, aber funzt nicht. -->
+      <router-link to="/detail/{{rFoto.id}}">TEST {{rFoto.id}}</router-link>
+
+      <!-- so gehts anscheinend, aber ich wollte es so in der Art wie oben lösen eigentlich -->
+      <router-link :to="{ name: 'FotoDetailView', params: {fotoid: rFoto.id } }" >
+        <figure class="image is-inline-block">
+          <img :src="url" />
+        </figure>
+      </router-link>
+
       <div class="content">
         <foto-star-rating :maxsterne="5" />
       </div>
