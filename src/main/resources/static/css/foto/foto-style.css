@@ -10,3 +10,7 @@ h3 {
     width: 50%;
     height: auto;
 }
+
+.loggedinusername {
+    font-size: 1.5rem;
+}
