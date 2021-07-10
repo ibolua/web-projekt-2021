@@ -11,7 +11,7 @@
                         <h1 class="title is-centered">Login zur MI Foto-Community</h1>
                         <div class="field">
                         <div class="control has-icons-left">
-                            <input type="input" name="username" placeholder="Username" class="input" required>
+                            <input v-model="username" type="input" name="username" placeholder="Username" class="input" required>
                             <span class="icon is-small is-left">
                             <em class="fa fa-user"></em>
                             </span>
@@ -19,7 +19,7 @@
                         </div>
                         <div class="field">
                         <div class="control has-icons-left">
-                            <input type="password" name="password" placeholder="*******" class="input" required>
+                            <input v-model="password" type="password" name="password" placeholder="*******" class="input" required>
                             <span class="icon is-small is-left">
                             <em class="fa fa-lock"></em>
                             </span>
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="field">
-                        <button class="button is-primary is-fullwidth">
+                        <button @click.prevent="login(username, password)" class="button is-primary is-fullwidth">
                             Login
                         </button>
                         </div>
@@ -44,14 +44,29 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useLoginStore} from '@/services/LoginStore'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
     name: 'LoginView',
 
     setup() {
+        const router = useRouter();
         const { loginstate, doLogin, doLogout } = useLoginStore();
         doLogout();
 
+        async function login(u: string, p: string) {
+            console.log("login geklickt");
+            console.log("u: ", u);
+            console.log("p: ", p);
+
+            if(await doLogin(u, p)) {
+                router.replace("/");
+            }
+        }
+
+        return {
+            login
+        }
 
     },
 })
