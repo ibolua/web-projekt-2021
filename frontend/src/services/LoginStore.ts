@@ -7,36 +7,24 @@ const loginstate = reactive({
     isLoggedIn: false
 })
 
-// const userobj = { loginname: 'ibo', rolle: 'PHOTOGRAPH' };
-
 export function useLoginStore() {
     async function doLogin(username: string, password: string): Promise<boolean> {
         console.info("doLogin() Start");
         const credentials = btoa('${username}:${password}');
-        const userobj = { 'username': username, 'password': password};
+        const userobj = { 'username': username, 'password': password };
 
         try {
             const url = "/api/login";
-            // const response = await fetch(url, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Authorization': 'Bearer ' + credentials,
-            //         'Content-Type': 'application/json',
-            //     },
-            //     // body: JSON.stringify(userobj),
-            // });
-
-
             const response = await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userobj),
             });
 
             const token = await response.text();
 
             // Wenn Antwort "ok 200"
-            if(response.ok) {
+            if (response.ok) {
                 // Im Erfolgsfall
                 loginstate.username = username;
                 loginstate.jwttoken = token;

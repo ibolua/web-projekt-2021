@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/detail/:fotoid',
     name: 'FotoDetailView',
-    component: FotoDetailView, props:true
+    component: FotoDetailView, props: true
   },
   {
     path: '/login',
@@ -36,7 +36,7 @@ const router = createRouter({
 const { loginstate } = useLoginStore();
 router.beforeEach((to, from) => {
   const ziel = to.fullPath
-  if(!loginstate.isLoggedIn && ziel !== '/login') {
+  if (!loginstate.isLoggedIn && ziel !== '/login') {
     return '/login';
   }
 })

@@ -1,7 +1,7 @@
 import { Foto } from "./Foto";
 
-export const fotoliste: Foto[] = 
-[
+export const fotoliste: Foto[] =
+  [
     {
       "id": 3,
       "mimetype": "image/jpeg",

@@ -7,8 +7,8 @@
       recusandae animi adipisci voluptas quas beatae. Nisi, tenetur error. Lorem
       ipsum dolor sit, amet consectetur adipisicing elit. Ratione molestiae
       maiores ut placeat quas, adipisci consequuntur vel suscipit, eveniet
-      libero, quam in odio reprehenderit obcaecati siebzehnibus doloribus nesciunt
-      accusamus numquam.
+      libero, quam in odio reprehenderit obcaecati siebzehnibus doloribus
+      nesciunt accusamus numquam.
     </div>
   </div>
 </template>

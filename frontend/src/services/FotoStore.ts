@@ -1,7 +1,7 @@
 import { reactive, readonly } from "vue";
 import { Foto, FotoMessage } from "./Foto";
 import { Client } from "@stomp/stompjs";
-import { useLoginStore} from '@/services/LoginStore';
+import { useLoginStore } from '@/services/LoginStore';
 
 const wsurl = "ws://localhost:9090/messagebroker";
 const DEST = "/topic/foto";
@@ -116,7 +116,7 @@ export function useFotoStore() {
                 method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + loginstate.jwttoken }
             });
-            
+
             const jsondata: Foto = await response.json();
 
             fotostate.fotos.push(jsondata);

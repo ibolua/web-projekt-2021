@@ -12,7 +12,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "FotoGalerieView",
   components: {
-    FotoGalerie
-  }
+    FotoGalerie,
+  },
 });
 </script>

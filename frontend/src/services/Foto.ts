@@ -10,10 +10,10 @@
 */
 
 export interface Kommentar {
-    id: number;
-    autor: string;
-    zeitpunkt: string;
-    text: string;
+  id: number;
+  autor: string;
+  zeitpunkt: string;
+  text: string;
 }
 
 /*
@@ -31,14 +31,14 @@ export interface Kommentar {
 */
 
 export interface Foto {
-    id: number;
-    mimetype: string;
-    dateiname: string;
-    ort: string;
-    zeitstempel: string;
-    geolaenge: number;
-    geobreite: number;
-    kommentare: number[];
+  id: number;
+  mimetype: string;
+  dateiname: string;
+  ort: string;
+  zeitstempel: string;
+  geolaenge: number;
+  geobreite: number;
+  kommentare: number[];
 }
 
 
