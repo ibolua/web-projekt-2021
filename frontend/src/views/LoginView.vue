@@ -5,7 +5,6 @@
         <div class="hero-body">
             <div class="container">
                 <div class="columns is-centered">
-                    <!-- <div class="column is-5-tablet is-4-desktop is-3-widescreen"> -->
                     <div class="column is-half">
                     <form action="" class="box">
                         <h1 class="title is-centered">Login zur MI Foto-Community</h1>
@@ -43,7 +42,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useLoginStore} from '@/services/LoginStore'
+import { useLoginStore } from '@/services/LoginStore'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -51,7 +50,7 @@ export default defineComponent({
 
     setup() {
         const router = useRouter();
-        const { loginstate, doLogin, doLogout } = useLoginStore();
+        const { doLogin, doLogout } = useLoginStore();
         doLogout();
 
         async function login(u: string, p: string) {

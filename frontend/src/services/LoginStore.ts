@@ -35,7 +35,7 @@ export function useLoginStore() {
 
             const token = await response.text();
 
-            // Wenn nicht Forbidden
+            // Wenn Antwort "ok 200"
             if(response.ok) {
                 // Im Erfolgsfall
                 loginstate.username = username;
