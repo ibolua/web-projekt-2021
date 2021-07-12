@@ -26,8 +26,6 @@
 </template>
 
 
-
-
 <script lang="ts">
 import { useFotoStore } from "@/services/FotoStore";
 import { defineComponent, reactive } from "vue";
@@ -46,7 +44,6 @@ export default defineComponent({
 
     console.log("FOTOID STRING: " + props.fotoid);
     console.log("FOTOID INT: " + id);
-    // id = 1997;
     const rFoto = fotostate.fotos.find((f) => f.id === id) ?? null;
     if (rFoto !== null) {
       urlString += rFoto.id;
