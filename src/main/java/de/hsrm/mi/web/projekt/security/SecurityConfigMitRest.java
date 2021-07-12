@@ -86,7 +86,13 @@ public class SecurityConfigMitRest {
             authmanagerbuilder.inMemoryAuthentication()
                 .withUser("friedfert").password(pwenc.encode("dingdong")).roles("GUCKER")
             .and()
-                .withUser("joghurta").password(pwenc.encode("geheim123")).roles("PHOTOGRAPH");
+                .withUser("joghurta").password(pwenc.encode("geheim123")).roles("PHOTOGRAPH")
+            .and()
+                .withUser("ibo").password(pwenc.encode("ibo")).roles("PHOTOGRAPH")
+            .and().and()
+                .userDetailsService(fotoUserDetailsService)
+                .passwordEncoder(pwenc)
+            ;
 
             authmanagerbuilder.userDetailsService(fotoUserDetailsService).passwordEncoder(pwenc);
         }

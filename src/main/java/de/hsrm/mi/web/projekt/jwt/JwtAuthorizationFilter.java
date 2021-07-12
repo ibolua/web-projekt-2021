@@ -61,7 +61,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 /*
                  * JWT-Token-Claims 'loginname' und 'rolle' extrahieren
                  */
+                logger.error("VOR CLAIM LOGINNAME");
+                logger.error("TOKEN: {}", token);
                 var loginname = jwtUtil.extrahiereClaim(token, JwtUtil.CLAIM_LOGINNAME);
+                logger.error("VOR CLAIM ROLLE");
                 var rolename = jwtUtil.extrahiereClaim(token, JwtUtil.CLAIM_ROLLE);
 
                 /*

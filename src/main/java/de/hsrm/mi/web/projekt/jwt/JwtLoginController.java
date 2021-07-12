@@ -35,6 +35,7 @@ public class JwtLoginController {
      */
     @PostMapping("/api/login")
     public String get_jwt_token(@RequestBody JwtLoginRequest logindata) {
+        logger.warn("GET_JWT_TOKEN: {}", logindata);
         String token=null;
         Authentication auth = null;
         try {
