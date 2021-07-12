@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
     component: FotoDetailView, props:true
   },
   {
-    path: '/logout',
+    path: '/login',
     name: 'LoginView',
     component: LoginView
   }
@@ -31,5 +31,11 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+// router.beforeEach((to, from) => {
+  
+//   const ziel = to.fullPath
+//   // if (!berechtigt && ziel !== 'login') return '/login';
+// })
 
 export default router

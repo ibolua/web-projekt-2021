@@ -56,9 +56,6 @@ export default defineComponent({
 
         async function login(u: string, p: string) {
             console.log("login geklickt");
-            console.log("u: ", u);
-            console.log("p: ", p);
-
             if(await doLogin(u, p)) {
                 router.replace("/");
             }

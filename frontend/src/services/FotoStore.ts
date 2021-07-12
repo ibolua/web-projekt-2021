@@ -1,9 +1,11 @@
 import { reactive, readonly } from "vue";
 import { Foto, FotoMessage } from "./Foto";
 import { Client } from "@stomp/stompjs";
+import { useLoginStore} from '@/services/LoginStore';
 
 const wsurl = "ws://localhost:9090/messagebroker";
 const DEST = "/topic/foto";
+const { loginstate, doLogin, doLogout } = useLoginStore();
 
 const stompclient = new Client({ brokerURL: wsurl })
 stompclient.onWebSocketError = (event) => {/* WebSocket-Fehler */ }
@@ -68,7 +70,14 @@ export function useFotoStore() {
     async function updateFotos(): Promise<void> {
         try {
             const url = "/api/foto"
-            const response = await fetch(url)
+            // const response = await fetch(url)
+
+            console.log("updateFotos() loginstate.jwttoken: ", loginstate.jwttoken);
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: { 'Authorization': 'Bearer ' + loginstate.jwttoken }
+            });
+
             const jsondata: Array<Foto> = await response.json()
 
             console.log("In updateFotos() - jsondata:");
@@ -86,8 +95,15 @@ export function useFotoStore() {
     async function deleteFoto(id: number): Promise<void> {
         try {
             const url = "api/foto/" + id;
-            await fetch(url, { method: 'DELETE' });
+            // await fetch(url, { method: 'DELETE' });
+            await fetch(url, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + loginstate.jwttoken }
+            });
+
+
         } catch (reason) {
+            console.warn("Fehler deleteFoto {}", reason);
             fotostate.errormessage = "Fehler: ${reason}";
         }
     }
@@ -95,11 +111,17 @@ export function useFotoStore() {
     async function getFoto(id: number): Promise<void> {
         try {
             const url = "api/foto/" + id;
-            const response = await fetch(url, { method: 'GET' });
+            // const response = await fetch(url, { method: 'GET' });
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: { 'Authorization': 'Bearer ' + loginstate.jwttoken }
+            });
+            
             const jsondata: Foto = await response.json();
 
             fotostate.fotos.push(jsondata);
         } catch (reason) {
+            console.warn("Fehler getFoto {}", reason);
             fotostate.errormessage = "Fehler: ${reason}";
         }
     }
