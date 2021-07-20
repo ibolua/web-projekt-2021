@@ -3,6 +3,9 @@
     <div class="hero is-primary">
       <div class="hero-body">
         <h1 class="title">MI Foto Community</h1>
+        <!-- <div v-if="user"> -->
+          <p class="subtitle">{{user}} ist eingeloggt</p>
+        <!-- </div> -->
       </div>
     </div>
 
@@ -14,7 +17,6 @@
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
-            <!-- <a href="/logout" class="navbar-item">Logout</a> -->
             <router-link to="/login" class="navbar-item">Login/Logout</router-link>
           </div>
         </div>
@@ -30,10 +32,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { useLoginStore} from '@/services/LoginStore'
+
 
 export default defineComponent({
   name: "App",
-  components: {}
+  components: {},
+
+  setup() {
+    const { loginstate } = useLoginStore();
+    const user = ref(loginstate.username);
+    console.log("user: {}", user);
+
+    return {
+      user: loginstate.username
+    };
+  }
 });
 </script>
